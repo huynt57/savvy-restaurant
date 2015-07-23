@@ -47,9 +47,14 @@
         <!-- Fonts 
         ================================================== -->
         <link href='{{ asset('fonts/stylesheet.css') }}' rel='stylesheet' type='text/css'>
-        <link href='{{ asset('http://fonts.googleapis.com/css?family=Montserrat:400,700') }}' rel='stylesheet' type='text/css'>
-        <link href='{{ asset('http://fonts.googleapis.com/css?family=Lato:400,700') }}' rel='stylesheet' type='text/css'>
-        <link href='{{ asset('http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic') }}' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js') }}"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,7 +78,7 @@
                 <div class="container">
                     <div class="rst-table">
                         <div class="rst-table-row">
-                            <a href="index.html" class="rst-logo rst-table-cell"><img src="img/logo-home.png" alt="" /></a>
+                            <a href="<?php echo url('main') ?>" class="rst-logo rst-table-cell"><img src="{{ asset('img/logo-home.png') }}" alt="" /></a>
                             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
@@ -86,11 +91,11 @@
                                     <input type="text" value="" />
                                 </form>
                                 <ul class="rst-main-menu">
-                                    <li class="current-menu-item"><a href="index.html">Home</a></li>                                   
-                                    <li><a href="menu.html">Menu</a></li>
-                                    <li><a href="menu.html">Reservation</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                   
+                                    <li class="current-menu-item"><a href="<?php echo url('main') ?>">Home</a></li>                                   
+                                    <li><a href="<?php echo url('menu') ?>">Menu</a></li>
+                                    <li><a href="<?php echo url('reservation') ?>">Reservation</a></li>
+                                    <li><a href="<?php echo url('contact') ?>">Contact</a></li>
+                                    <li><a href="<?php echo url('about') ?>">About Us</a></li>
                                 </ul>
                                 <a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>
                             </div>
@@ -115,7 +120,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div><!-- End Top Header -->
@@ -143,9 +148,11 @@
                                 </div>
                                 <div class="rst-menu-footer rst-table-cell">
                                     <ul>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="menu.html">Menu</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li class="current-menu-item"><a href="<?php echo url('main') ?>">Home</a></li>                                   
+                                        <li><a href="<?php echo url('menu') ?>">Menu</a></li>
+                                        <li><a href="<?php echo url('reservation') ?>">Reservation</a></li>
+                                        <li><a href="<?php echo url('contact') ?>">Contact</a></li>
+                                        <li><a href="<?php echo url('about') ?>">About Us</a></li>
                                     </ul>
                                 </div>
                                 <div class="rst-note rst-table-cell">
@@ -160,8 +167,7 @@
         </div><!--- End Wrapper -->
 
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js') }}"></script>
+
 
         <!-- Bootstrap Js Compiled Plugins -->
         <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>

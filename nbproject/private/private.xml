@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/WelcomeController.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/detail.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/app.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/auth/login.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/reservation.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/about.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/public/index.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/homepage.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/home.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/menu.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/recipe.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/contact.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/checkout.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/store.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/MainController.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/mainpagew.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/errors/404.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/welcome.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/mainpage.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/routes.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/config/database.php</file>
+        </group>
+    </open-files>
+</project-private>

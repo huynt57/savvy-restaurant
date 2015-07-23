@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Dish;
+
 class MainController extends Controller {
     /*
       |--------------------------------------------------------------------------
@@ -51,17 +54,31 @@ class MainController extends Controller {
     public function recipe() {
         return view('main/recipe');
     }
-    
+
     public function about() {
         return view('main/about');
     }
-    
+
     public function store() {
-        return view('main/store');
+        
+        $categories = $this->showCategory();
+        $dishes = $this->listDish();
+        return view('main/store', array('categories' => $categories,
+            'dishes' => $dishes));
     }
-    
+
     public function detail() {
         return view('main/detail');
+    }
+
+    public function showCategory() {
+        $categories = Category::all();
+        return $categories;
+    }
+
+    public function listDish() {
+        $dishes = Dish::all();
+        return $dishes;
     }
 
 }

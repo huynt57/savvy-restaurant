@@ -19,30 +19,31 @@
     <div class="container rst-main-content">
         <div class="row">
             <div class="col-sm-9">
+                <?php if (Session::get('message') != ""): ?>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <div class="alert alert-success" role="alert">
+                                <?php echo Session::get('message'); ?>
+                            </div>
+
+                        </div>
+                    </div>
+                <?php endif; ?>
                 <h4>Contact form</h4>
                 <div class="rst-form-input rst-contact-form">
-                    <form  id="contactForm" action="http://themeforces.com/">
+                    <form  id="contactForm" action="<?php echo url('sendcontact') ?>" method="POST">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Name" data-validation-required-message="Please enter your name.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" data-validation-required-message="Please enter your email address.">
                                     <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <select id="problem" name="problem" class="form-control">
-                                        <option value="">Problem type</option>
-                                        <option value="">Problem type</option>
-                                        <option value="">Problem type</option>
-                                        <option value="">Problem type</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +51,8 @@
                             <textarea id="message" name="comments" class="form-control" rows="10" placeholder="Comments" data-validation-required-message="Please enter a message."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
-                        <div id="success"></div>
+
+
                         <input type="submit" class="btn btn-lg btn-danger" value="Send" />
                     </form>
                 </div>

@@ -1,4 +1,4 @@
-@extends('mainpagew')
+@extends('mainpage')
 
 @section('content')
 <div id="content">
