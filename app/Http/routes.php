@@ -33,9 +33,13 @@ Route::get('store', 'MainController@store');
 
 Route::get('detail', 'MainController@detail');
 
-Route::post('sendcontact', 'ContactController@sendContact');
+Route::post('sendContact', 'ContactController@sendContact');
 
 Route::post('listDishByCategory', 'DishController@listDishByCategory');
+
+Route::post('bookTable', 'ReservationController@bookTable');
+
+Route::post('addCart', 'CartController@addCart');
 
 Route::get('dish/{name}-{dish_id}', 'DishController@DishDetail')->where('name', '[A-Za-z-]+');
 

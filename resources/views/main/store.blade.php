@@ -59,7 +59,7 @@
                                 <a href="<?php echo url('dish') ?>/@{{item.dish_name}}-@{{item.dish_id}}"><img src="@{{item.dish_image}}" alt="" /></a>
                                 <div class="rst-hover">
                                     @{{item.category_name}}
-                                    <a href="#" class="addtocard"></a>
+                                    <a href="#" class="addtocard" ng-click="addCart(@{{item.dish_id}})"></a>
                                 </div>
                             </div>
                             <div class="rst-product-info">
@@ -100,6 +100,19 @@
                 $scope.data = response;
 
                 // console.log(response);
+            }).error(function(response) {
+
+            });
+        };
+        
+        $scope.addCart = function(dish_id) {
+            $http({
+                method: 'POST',
+                url: 'addCart',
+                data: $.param({dish_id: dish_id}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+            }).success(function(response){
+                
             }).error(function(response) {
 
             });

@@ -8,9 +8,9 @@ use Session;
 use Illuminate\Http\Response;
 use DB;
 use App\Quotation;
-use App\Contact;
+use App\BookTable;
 
-class ContactController extends Controller {
+class ReservationController extends Controller {
     /*
       |--------------------------------------------------------------------------
       | Home Controller
@@ -28,7 +28,7 @@ class ContactController extends Controller {
      * @return void
      */
     public function __construct() {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -41,13 +41,27 @@ class ContactController extends Controller {
         $name = \StringHelper::filterString($request->input('name'));
         $phone = \StringHelper::filterString($request->input('phone'));
         $number = \StringHelper::filterString($request->input('number'));
-        $date = \StringHelper::filterString($request->input('date'));
+        $month = \StringHelper::filterString($request->input('month'));
+        $day = \StringHelper::filterString($request->input('day'));
+        $hour = \StringHelper::filterString($request->input('hour'));
+        $min = \StringHelper::filterString($request->input('min'));
+        $a_p = \StringHelper::filterString($request->input('a-p'));
         $content = \StringHelper::filterString($request->input('comments'));
-        
-        if($email != "" && $name != "" && $content != "") {
-           
-            $contact->save();
-        }      
+
+        if ($email != "" && $name != "" && $phone != "" && $number != "" && $month != "" && $day != "") {
+
+            $book_table = new BookTable;
+            $book_table->name = $name;
+            $book_table->email = $email;
+            $book_table->phone = $phone;
+            $book_table->number = $number;
+            $book_table->comments = $content;
+            $book_table->active = 1;
+            $book_table->status = 1;
+            $book_table->date = $day . "-" . $month . " " . $hour . ":" . $min . " " . $a_p;
+            $book_table->save();
+        }
         return Redirect::back()->with('message', 'Success');
     }
+
 }

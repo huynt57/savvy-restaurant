@@ -18,8 +18,18 @@
         </div>
     </div><!-- Banner -->
     <div class="container rst-main-content">
+        <?php if (Session::get('message') != ""): ?>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="alert alert-success" role="alert">
+                        <?php echo Session::get('message'); ?>
+                    </div>
+
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="rst-form-input">
-            <form class="rst-form-reservation" action="http://themeforces.com/">
+            <form class="rst-form-reservation" action="<?php echo url('bookTable') ?>" method="POST">
                 <h4><span class="rst-circle">1</span>Basic info</h4>
                 <div class="row">
                     <div class="col-sm-4">
@@ -42,49 +52,51 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <select name="" class="form-control">
+                            <select name="number" class="form-control">
                                 <option value="">Numbers guests</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <select name="" class="form-control">
+                            <select name="month" class="form-control">
                                 <option value="">Month</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <?php for ($i = 1; $i <= 12; $i++): ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php endfor; ?>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <select name="" class="form-control">
+                            <select name="day" class="form-control">
                                 <option value="">Day</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <?php for ($i = 1; $i <= 31; $i++): ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php endfor; ?>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <select name="" class="form-control control-inline">
+                            <select name="hour" class="form-control control-inline">
                                 <option value="">Hour</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <?php for ($i = 1; $i <= 12; $i++): ?>
+                                    <option value="">Hour</option>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php endfor; ?>
                             </select>
-                            <select name="" class="form-control control-inline">
+                            <select name="min" class="form-control control-inline">
                                 <option value="">Min</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <?php for ($i = 1; $i <= 60; $i++): ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php endfor; ?>
                             </select>
-                            <select name="" class="form-control control-inline">
+                            <select name="a_p" class="form-control control-inline">
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
                             </select>
