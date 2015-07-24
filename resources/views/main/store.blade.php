@@ -18,6 +18,16 @@
         </div>
     </div><!-- Banner -->
     <div class="container rst-main-content">
+        <?php if (Session::get('message') != ""): ?>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="alert alert-success" role="alert">
+                        <?php echo Session::get('message'); ?>
+                    </div>
+
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="text-center">
             <p>Sed at dictum aliquam porta felis et semper venenatis. Praesent condimentum laoreet leo, sit amet luctus <br /> est semper non. Mauris tincidunt lorem vel lorem venenatis volutpat. </p>
         </div>
@@ -27,7 +37,7 @@
                     <h4>Categories</h4>
                     <ul class="list-category">
                         <?php foreach ($categories as $category): ?>                       
-                        <li ><a ng-class="class" href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
+                            <li ><a ng-class="class" href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
                         <?php endforeach; ?>
                     </ul>
                     <hr />
@@ -89,55 +99,51 @@
 </div>
 
 <script type="text/javascript">
-    function StoreController($scope, $http) {
-        $scope.loadDish = function(id) {
-          //  $event.currentTarget.class = "red";
+            function StoreController($scope, $http) {
+            $scope.loadDish = function(id) {
+            //  $event.currentTarget.class = "red";
             $http({
-                method: 'POST',
-                url: 'listDishByCategory',
-                data: $.param({id: id}),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+            method: 'POST',
+                    url: 'listDishByCategory',
+                    data: $.param({id: id}),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
             }).success(function(response) {
-                $scope.data = response;
-
-                // console.log(response);
+            $scope.data = response;
+                    // console.log(response);
             }).error(function(response) {
 
             });
-        };
-        
-        $scope.addCart = function(dish_id) {
-            $http({
-                method: 'POST',
-                url: 'addCart',
-                data: $.param({dish_id: dish_id}),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-            }).success(function(response){
-                
-            }).error(function(response) {
+            };
+                    $scope.addCart = function(dish_id) {
+                    $http({
+                    method: 'POST',
+                            url: 'addCart',
+                            data: $.param({dish_id: dish_id}),
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    }).success(function(response){
 
-            });
-        };
-        
-        $scope.init = function()
-        {
-            $http({
-                method: 'GET',
-                url: 'getDish',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-            }).success(function(response){
-                $scope.data = response;
-            }).error(function(response) {
+                    }).error(function(response) {
 
-            });
-        }
+                    });
+                    };
+                    $scope.init = function()
+                    {
+                         $http({
+                            method: 'GET',
+                            url: 'getDish',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                         }).success(function(response){
+                         $scope.data = response;
+                            }).error(function(response) {
 
-    }
+                            });
+                    };
+            }
 
     function setActive()
     {
-        $('li').removeClass('active');
-        $(this).parent().addClass('active');
+    $('li').removeClass('active');
+            $(this).parent().addClass('active');
     }
 
 

@@ -38,6 +38,20 @@ class CartController extends Controller {
         //Session::flush();
     }
 
+    public function addCartWithNumber(Request $request) {
+        $dish_id = \StringHelper::filterString($request->input('dish_id'));
+        $number = \StringHelper::filterString($request->input('number'));
+        if (Session::has($dish_id)) {
+            //echo 'tt';
+            $value = Session::get($dish_id);
+            // echo $value;
+            $value+=$number;
+            Session::put($dish_id, $value);
+        } else {
+            Session::put($dish_id, $number);
+        }
+    }
+
     public function removeItemFromCart(Request $request) {
         $dish_id = \StringHelper::filterString($request->input('dish_id'));
         Session::forget($dish_id);

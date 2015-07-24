@@ -66,11 +66,21 @@
             .remove-item {
                 display: none;
             }
-            
+
         </style>
 
     </head>
     <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=1493872717557948";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
 
         <!-- Preloader -->
         <div id="pageLoading">
@@ -106,34 +116,39 @@
                                 </ul>
                                 <a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>
                             </div>
-                            
+
                             <div class="rst-account rst-table-cell">
-                                <?php $cart = Session::all(); $total = 0;?>
+                                <?php $cart = Session::all();
+                                $total = 0; ?>
                                 <div class="rst-cart">
-                                    <a href="#" class="rst-cart-icon"><span><?php if(count($cart) >= 3) echo count($cart) - 3 ?></span></a>
+                                    <a href="#" class="rst-cart-icon"><span><?php if (count($cart) >= 3) echo count($cart) - 3 ?></span></a>
                                     <div class="rst-form-login rst-cart-info">
                                         <div class="rst-list-product">
-                                            <?php if(count($cart) > 3):?>
-                                            <?php foreach ($cart as $key => $value): ?>
-                                                <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
-                                                    <div class="rst-product-item">
-                                                        <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
-                                                        <a href="#"><?php echo $item->dish_name  ?><span class="count"><?php if (!is_array($value)) {echo $value;} ?></span> <span class="price">$<?php {echo $value*$item->dish_price;}?></span></a>
-                                                    </div>
-                                                <?php $total+=$value*$item->dish_price?>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                            <?php endif;?>
+                                            <?php if (count($cart) > 3): ?>
+                                                <?php foreach ($cart as $key => $value): ?>
+                                                        <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
+                                                        <div class="rst-product-item">
+            <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
+                                                            <a href="#"><?php echo $item->dish_name ?><span class="count"><?php if (!is_array($value)) {
+                echo $value;
+            } ?></span> <span class="price">$<?php {
+                                                echo $value * $item->dish_price;
+                                            } ?></span></a>
+                                                        </div>
+            <?php $total+=$value * $item->dish_price ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
                                         </div>
                                         <div class="rst-checkout">
                                             <a href="<?php echo url('checkout') ?>" class="btn btn-success btn-sm">Check out</a>
-                                            <span class="price">$<?php echo $total?></span>
+                                            <span class="price">$<?php echo $total ?></span>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                          
+
                         </div>
                     </div><!-- End Top Header -->
                     <div class="rst-search rst-table">
@@ -156,7 +171,7 @@
                         <div class="rst-table">
                             <div class="rst-table-row">
                                 <div class="rst-copyright rst-table-cell">
-                                    <a href="#" class="rst-logo-footer"><img src="img/logo-footer.png" alt="" /></a>&copy; 2014 FoodUp. All right reserved.
+                                    <a href="#" class="rst-logo-footer"><img src="<?php echo url('img/logo-footer.png') ?>" alt="" /></a>&copy; 2014 FoodUp. All right reserved.
                                 </div>
                                 <div class="rst-menu-footer rst-table-cell">
                                     <ul>
@@ -184,7 +199,7 @@
                 $scope.addCart = function(dish_id) {
                     $http({
                         method: 'POST',
-                        url: 'addCart',
+                        url: '<?php echo url("addCart") ?>',
                         data: $.param({dish_id: dish_id}),
                         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                     }).success(function(response) {
@@ -193,29 +208,29 @@
 
                     });
                 };
-                
+
                 $scope.removeItemCart = function(dish_id) {
                     //$scope.class = "remove-item";
                     $http({
                         method: 'POST',
-                        url: 'removeItemCart',
+                        url: '<?php echo url("addCart") ?>',
                         data: $.param({dish_id: dish_id}),
                         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                     }).success(function(response) {
-                        
+
                     }).error(function(response) {
 
                     });
                 };
-                               
+
             }
-                function removeItem()
-                {
-                 // var attr = $(this).attr('test');
+            function removeItem()
+            {
+                // var attr = $(this).attr('test');
                 //  alert(attr);
-                   $(this).parent().parent().parent().remove();
-                   
-                }</script>
+                $(this).parent().parent().parent().remove();
+
+            }</script>
 
 
         <!-- Bootstrap Js Compiled Plugins -->

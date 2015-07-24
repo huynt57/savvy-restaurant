@@ -33,9 +33,11 @@ class DishController extends Controller {
         $dish = DB::table('dish')->where('dish_id', $dish_id)->first();
         return view('dish/detail', array('dish' => $dish));
     }
-    
+
     public function getDishes() {
-        return Dish::all();
+        $results = DB::select('select * from tbl_dish JOIN tbl_category_dish ON tbl_dish.dish_id = tbl_category_dish.dish_id '
+                        . 'JOIN tbl_category ON tbl_category_dish.category_id = tbl_category.category_id');
+        return $results;
     }
 
 }

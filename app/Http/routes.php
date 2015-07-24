@@ -45,6 +45,8 @@ Route::post('bookTable', 'ReservationController@bookTable');
 
 Route::post('addCart', 'CartController@addCart');
 
+Route::post('addCartWithNumber', 'CartController@addCartWithNumber');
+
 Route::post('removeItemCart', 'CartController@removeItemFromCart');
 
 Route::get('dish/{name}-{dish_id}', 'DishController@DishDetail')->where('name', '[A-Za-z-]+');
