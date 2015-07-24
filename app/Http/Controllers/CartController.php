@@ -73,7 +73,7 @@ class CartController extends Controller {
             //echo 'test';
             // die();
         }
-        return Redirect::to(url('menu'))->with('message', 'Success');
+        return Redirect::to(url('menu'))->with('message', 'Order Success !. You can continue buy now !');
     }
 
 }

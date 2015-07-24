@@ -109,12 +109,21 @@
                             
                             <div class="rst-account rst-table-cell">
                                 <?php $cart = Session::all(); $total = 0;?>
-                                <?php if(isset($cart)):?>
                                 <div class="rst-cart">
                                     <a href="#" class="rst-cart-icon"><span><?php if(count($cart) >= 3) echo count($cart) - 3 ?></span></a>
                                     <div class="rst-form-login rst-cart-info">
                                         <div class="rst-list-product">
-                                            
+                                            <?php if(count($cart) > 3):?>
+                                            <?php foreach ($cart as $key => $value): ?>
+                                                <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
+                                                    <div class="rst-product-item">
+                                                        <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
+                                                        <a href="#"><?php echo $item->dish_name  ?><span class="count"><?php if (!is_array($value)) {echo $value;} ?></span> <span class="price">$<?php {echo $value*$item->dish_price;}?></span></a>
+                                                    </div>
+                                                <?php $total+=$value*$item->dish_price?>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                            <?php endif;?>
                                         </div>
                                         <div class="rst-checkout">
                                             <a href="<?php echo url('checkout') ?>" class="btn btn-success btn-sm">Check out</a>
@@ -122,7 +131,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?php endif; ?>
+
                             </div>
                           
                         </div>
