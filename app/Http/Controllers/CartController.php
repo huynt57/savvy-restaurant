@@ -28,13 +28,17 @@ class CartController extends Controller {
             //echo 'tt';
             $value = Session::get($dish_id);
            // echo $value;
-            $value = $value + 1;
+            $value++;
             Session::put($dish_id, $value);
         } else {
             Session::put($dish_id, 1);
         }
       //  echo Session::get($dish_id);
         //Session::flush();
+    }
+    
+    public function removeItemFromCart(Request $request) {
+         $dish_id = \StringHelper::filterString($request->input('dish_id'));
     }
 
 }

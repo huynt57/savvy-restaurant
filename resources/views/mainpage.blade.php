@@ -23,30 +23,30 @@
 
         <!-- Bootstrap 
         ================================================== -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/jasny-bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-slider.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.3.0/css/font-awesome.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/jasny-bootstrap.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-slider.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.3.0/css/font-awesome.css')}}">
 
         <!-- Plugins CSS
     ================================================== -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}"><!-- animation -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bgndGallery.css') }}"><!-- bgndGallery -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('js/fancybox/jquery.fancybox8cbb.css') }}?v=2.1.5"><!-- Fancybox  -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/calendar/fullcalendar.min.css') }}"><!-- Calendar -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('js/bxslider/jquery.bxslider.css') }}"><!-- BxSlider -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.rs.selectbox.css') }}"><!-- Selectbox -->	
-        <link rel="stylesheet" type="text/css" href="{{ asset('js/owlcarousel/owl.carousel.css') }}"><!-- owl carousel -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css')}}"><!-- animation -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bgndGallery.css')}}"><!-- bgndGallery -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('js/fancybox/jquery.fancybox8cbb.css')}}?v=2.1.5"><!-- Fancybox  -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/calendar/fullcalendar.min.css')}}"><!-- Calendar -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('js/bxslider/jquery.bxslider.css')}}"><!-- BxSlider -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.rs.selectbox.css')}}"><!-- Selectbox -->	
+        <link rel="stylesheet" type="text/css" href="{{ asset('js/owlcarousel/owl.carousel.css')}}"><!-- owl carousel -->
 
         <!-- Custom Css 
         ================================================== -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/rs-wp-v1.2.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/rs-wp-v1.2.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css')}}">
 
         <!-- Fonts 
         ================================================== -->
-        <link href='{{ asset('fonts/stylesheet.css') }}' rel='stylesheet' type='text/css'>
+        <link href='{{ asset('fonts/stylesheet.css')}}' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -54,7 +54,7 @@
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js')}}"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,7 +62,7 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js') }}"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js') }}"></script>
         <![endif]-->
-        
+
     </head>
     <body>
 
@@ -74,12 +74,12 @@
         </div>
 
         <!--- Wrapper -->
-        <div id="wrapper" class="home-page">
+        <div id="wrapper" class="home-page" ng-app="" ng-controller="CartController">
             <header id="header">
                 <div class="container">
                     <div class="rst-table">
                         <div class="rst-table-row">
-                            <a href="<?php echo url('main') ?>" class="rst-logo rst-table-cell"><img src="{{ asset('img/logo-home.png') }}" alt="" /></a>
+                            <a href="<?php echo url('main') ?>" class="rst-logo rst-table-cell"><img src="{{ asset('img/logo-home.png')}}" alt="" /></a>
                             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
@@ -100,36 +100,39 @@
                                 </ul>
                                 <a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>
                             </div>
+                            
                             <div class="rst-account rst-table-cell">
+                                <?php $cart = Session::all(); $total = 0;?>
                                 <div class="rst-cart">
-                                    <a href="#" class="rst-cart-icon"><span>2</span></a>
+                                    <a href="#" class="rst-cart-icon"><span><?php if(count($cart) >= 3) echo count($cart) - 3 ?></span></a>
                                     <div class="rst-form-login rst-cart-info">
                                         <div class="rst-list-product">
-                                            <div class="rst-product-item">
-                                                <a href="#">Sashimi &amp; vasabi <span class="count">2</span> <span class="price">$20</span></a>
-                                            </div>
-                                            <div class="rst-product-item">
-                                                <a href="#">Dinner menu <span class="count">2</span> <span class="price">$25</span></a>
-                                            </div>
-                                            <div class="rst-product-item">
-                                                <a href="#">Salade menu <span class="count">2</span> <span class="price">$25</span></a>
-                                            </div>
+                                            <?php foreach ($cart as $key => $value): ?>
+                                                <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
+                                                    <div class="rst-product-item">
+                                                        <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
+                                                        <a href="#"><?php echo $item->dish_name  ?><span class="count"><?php if (!is_array($value)) {echo $value;} ?></span> <span class="price">$<?php {echo $value*$item->dish_price;}?></span></a>
+                                                    </div>
+                                                <?php $total+=$value*$item->dish_price?>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
                                         </div>
                                         <div class="rst-checkout">
-                                            <a href="checkout.html" class="btn btn-success btn-sm">Check out</a>
-                                            <span class="price">$70</span>
+                                            <a href="<?php echo url('checkout') ?>" class="btn btn-success btn-sm">Check out</a>
+                                            <span class="price">$<?php echo $total?></span>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
+                          
                         </div>
                     </div><!-- End Top Header -->
                     <div class="rst-search rst-table">
                         <div class="rst-table-row">
                             <div class="rst-table-cell">
-                                <form action="http://themeforces.com/">
-                                    <input type="text" placeholder="type and hit enter" value="" />
+                                <form action="<?php echo url('search') ?>" method="GET">
+                                    <input type="text" placeholder="type and hit enter" value="" name="query"/>
                                 </form>
                                 <a href="#" class="rst-hide-form"><i class="fa fa-close"></i></a>
                             </div>
@@ -167,53 +170,82 @@
             </footer>
         </div><!--- End Wrapper -->
 
+        <script type="text/javascript">
 
+            function CartController($scope, $http) {
+                $scope.addCart = function(dish_id) {
+                    $http({
+                        method: 'POST',
+                        url: 'addCart',
+                        data: $.param({dish_id: dish_id}),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    }).success(function(response) {
+
+                    }).error(function(response) {
+
+                    });
+                };
+                
+                $scope.removeItemCart() = function(dish_id) {
+                    $http({
+                        method: 'POST',
+                        url: 'addCart',
+                        data: $.param({dish_id: dish_id}),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    }).success(function(response) {
+
+                    }).error(function(response) {
+
+                    });
+                };
+
+            }</script>
 
 
         <!-- Bootstrap Js Compiled Plugins -->
-        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
 
         <!-- Backstretch Plugins -->
-        <script type="text/javascript" src="{{ asset('js/jquery.backstretch.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.backstretch.js')}}"></script>
 
         <!-- Form Js -->
-        <script type="text/javascript" src="{{ asset('js/jquery.rs.form.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.rs.form.js')}}"></script>
 
         <!-- BxSlider -->
-        <script type="text/javascript" src="{{ asset('js/bxslider/jquery.easing.1.3.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/bxslider/jquery.bxslider.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bxslider/jquery.easing.1.3.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('js/bxslider/jquery.bxslider.min.js')}}"></script>
 
         <!-- Fancybox -->
-        <script type="text/javascript" src="{{ asset('js/fancybox/jquery.fancybox8cbb.js?v=2.1.5') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/fancybox/jquery.fancybox8cbb.js?v=2.1.5')}}"></script>
 
         <!-- Selectbox Js -->
-        <script type="text/javascript" src="{{ asset('js/jquery.rs.selectbox.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.rs.selectbox.js')}}"></script>
 
         <!-- Google Map -->
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places"></script>
 
         <!-- WoW Plugins -->
-        <script src="{{ asset('js/wow.min.js') }}"></script>
+        <script src="{{ asset('js/wow.min.js')}}"></script>
 
-        <script type='text/javascript' src='{{ asset('js/woocommerce.js') }}'></script>
+        <script type='text/javascript' src='{{ asset('js/woocommerce.js')}}'></script>
         <script type='text/javascript'>
-                /* <![CDATA[ */
-                var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
-                var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
-                /* ]]> */
+                    /* <![CDATA[ */
+                    var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
+            var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
+            /* ]]> */
         </script>
-        <script type='text/javascript' src='{{ asset('js/single-product.min.js') }}'></script>
+        <script type='text/javascript' src='{{ asset('js/single-product.min.js')}}'></script>
 
-        <script type='text/javascript' src="{{ asset('js/bootstrap-slider.js') }}"></script>
+        <script type='text/javascript' src="{{ asset('js/bootstrap-slider.js')}}"></script>
 
-        <script type='text/javascript' src="{{ asset('js/owlcarousel/owl.carousel.min.js') }}"></script>
+        <script type='text/javascript' src="{{ asset('js/owlcarousel/owl.carousel.min.js')}}"></script>
 
-        <script src='{{ asset('js/calendar/moment.min.js') }}'></script>
-        <script src='{{ asset('js/calendar/fullcalendar.min.js') }}'></script>
+        <script src='{{ asset('js/calendar/moment.min.js')}}'></script>
+        <script src='{{ asset('js/calendar/fullcalendar.min.js')}}'></script>
 
-        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-        
-        
+        <script type="text/javascript" src="{{ asset('js/main.js')}}"></script>
+
+
 
     </body>
 

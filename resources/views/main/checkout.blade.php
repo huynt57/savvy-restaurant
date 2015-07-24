@@ -20,47 +20,30 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $cart = Session::all(); $total = 0;?>
+                        <?php foreach ($cart as $key => $value): ?>
+                             <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
+                          <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
                         <tr>
                             <td class="product-name">
-                                <a class="remove" href="#"><i class="fa fa-close"></i></a>
-                                <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
-                                Sashimi & vasabi
+                                <a class="remove" href="#" ng-click="removeItemCart(<?php echo $key ?>)"><i class="fa fa-close"></i></a>
+                                <img class="img-circle" src="img/post/product-card-0<?php echo $item->dish_id % 3?>.jpg" alt="" />
+                                <?php echo $item->dish_name; ?>
                             </td>
-                            <td>$10</td>
+                            <td>$<?php echo $item->dish_price ?></td>
                             <td>
-                                <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="2" title="Qty" class="input-text qty text" size="4" /></div>
+                                <div class="quantity"><input type="number" step="1" min="0"  name="number" value="<?php echo $value?>" title="Qty" class="input-text qty text" size="4" /></div>
                             </td>
-                            <td class="price">$20</td>
+                            <td class="price">$<?php echo $value*$item->dish_price ?></td>
                         </tr>
-                        <tr>
-                            <td class="product-name">
-                                <a class="remove" href="#"><i class="fa fa-close"></i></a>
-                                <img class="img-circle" src="img/post/product-card-02.jpg" alt="" />
-                                Hamburger 
-                            </td>
-                            <td>$10</td>
-                            <td>
-                                <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="1" title="Qty" class="input-text qty text" size="4" /></div>
-                            </td>
-                            <td class="price">$25</td>
-                        </tr>
-                        <tr>
-                            <td class="product-name">
-                                <a class="remove" href="#"><i class="fa fa-close"></i></a>
-                                <img class="img-circle" src="img/post/product-card-03.jpg" alt="" />
-                                Pizza menu 
-                            </td>
-                            <td>$10</td>
-                            <td>
-                                <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="1" title="Qty" class="input-text qty text" size="4" /></div>
-                            </td>
-                            <td class="price">$25</td>
-                        </tr>
+                        <?php $total+=$value*$item->dish_price ?>
+                            <?php endif;?>
+                        <?php endforeach;?>
                         <tr class="subtotal">
                             <th></th>
                             <th></th>
                             <th>subtotal</th>
-                            <th class="price">$70</th>
+                            <th class="price">$<?php echo $total?></th>
                         </tr>
                     </tbody>
                 </table>
