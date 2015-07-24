@@ -33,6 +33,10 @@ Route::get('store', 'MainController@store');
 
 Route::get('detail', 'MainController@detail');
 
+Route::post('processCheckOut', 'CartController@checkout');
+
+Route::get('getDish', 'DishController@getDishes');
+
 Route::post('sendContact', 'ContactController@sendContact');
 
 Route::post('listDishByCategory', 'DishController@listDishByCategory');
@@ -40,6 +44,8 @@ Route::post('listDishByCategory', 'DishController@listDishByCategory');
 Route::post('bookTable', 'ReservationController@bookTable');
 
 Route::post('addCart', 'CartController@addCart');
+
+Route::post('removeItemCart', 'CartController@removeItemFromCart');
 
 Route::get('dish/{name}-{dish_id}', 'DishController@DishDetail')->where('name', '[A-Za-z-]+');
 

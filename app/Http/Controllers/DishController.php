@@ -33,5 +33,9 @@ class DishController extends Controller {
         $dish = DB::table('dish')->where('dish_id', $dish_id)->first();
         return view('dish/detail', array('dish' => $dish));
     }
+    
+    public function getDishes() {
+        return Dish::all();
+    }
 
 }

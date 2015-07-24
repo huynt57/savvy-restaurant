@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="content" ng-controller="StoreController" ng-app="">
+<div id="content" ng-controller="StoreController" ng-app="" ng-init="init()">
     <div id="rst-banner" data-background="img/post/banner02.jpg">
         <div class="container">
             <div class="rst-inner-banner clearfix">
@@ -27,7 +27,7 @@
                     <h4>Categories</h4>
                     <ul class="list-category">
                         <?php foreach ($categories as $category): ?>                       
-                            <li ><a href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
+                        <li ><a ng-class="class" href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
                         <?php endforeach; ?>
                     </ul>
                     <hr />
@@ -36,7 +36,7 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-3">
-                            <form action="http://themeforces.com/" class="rst-form-input">
+                            <form action="#" class="rst-form-input">
                                 <div class="form-group">
                                     <select class="form-control" name="country" id="InputCountry">
                                         <option value="Popular">Popular</option>
@@ -91,6 +91,7 @@
 <script type="text/javascript">
     function StoreController($scope, $http) {
         $scope.loadDish = function(id) {
+          //  $event.currentTarget.class = "red";
             $http({
                 method: 'POST',
                 url: 'listDishByCategory',
@@ -117,6 +118,19 @@
 
             });
         };
+        
+        $scope.init = function()
+        {
+            $http({
+                method: 'GET',
+                url: 'getDish',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+            }).success(function(response){
+                $scope.data = response;
+            }).error(function(response) {
+
+            });
+        }
 
     }
 
