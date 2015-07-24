@@ -40,7 +40,7 @@
                         <?php foreach ($cart as $key => $value): ?>
                             <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
                                 <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
-                                <tr ng-class="class">
+                                <tr ng-class="class" id="row-<?php echo $key ?>">
                                     <td class="product-name">
                                         <a class="remove" href="#" ng-click="removeItemCart(<?php echo $key ?>)" onclick="removeItem()"><i class="fa fa-close"></i></a>
                                         <img class="img-circle" src="img/post/product-card-0<?php echo $item->dish_id % 3 ?>.jpg" alt="" />

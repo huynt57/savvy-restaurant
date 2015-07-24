@@ -50,11 +50,12 @@
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js')}}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js')}}"></script>
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -119,7 +120,8 @@
 
                             <div class="rst-account rst-table-cell">
                                 <?php $cart = Session::all();
-                                $total = 0; ?>
+                                $total = 0;
+                                ?>
                                 <div class="rst-cart">
                                     <a href="#" class="rst-cart-icon"><span><?php if (count($cart) >= 3) echo count($cart) - 3 ?></span></a>
                                     <div class="rst-form-login rst-cart-info">
@@ -128,12 +130,15 @@
                                                 <?php foreach ($cart as $key => $value): ?>
                                                         <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
                                                         <div class="rst-product-item">
-            <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
-                                                            <a href="#"><?php echo $item->dish_name ?><span class="count"><?php if (!is_array($value)) {
-                echo $value;
-            } ?></span> <span class="price">$<?php {
-                                                echo $value * $item->dish_price;
-                                            } ?></span></a>
+                                                                    <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
+                                                            <a href="#"><?php echo $item->dish_name ?><span class="count"><?php
+                                                                    if (!is_array($value)) {
+                                                                        echo $value;
+                                                                    }
+                                                                    ?></span> <span class="price">$<?php {
+                                                            echo $value * $item->dish_price;
+                                                        }
+                                                        ?></span></a>
                                                         </div>
             <?php $total+=$value * $item->dish_price ?>
         <?php endif; ?>
@@ -195,7 +200,7 @@
 
         <script type="text/javascript">
 
-            function CartController($scope, $http) {
+            function CartController($scope, $http, $element) {
                 $scope.addCart = function(dish_id) {
                     $http({
                         method: 'POST',
@@ -211,13 +216,15 @@
 
                 $scope.removeItemCart = function(dish_id) {
                     //$scope.class = "remove-item";
+
                     $http({
                         method: 'POST',
-                        url: '<?php echo url("addCart") ?>',
+                        url: '<?php echo url("removeItemCart") ?>',
                         data: $.param({dish_id: dish_id}),
                         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                     }).success(function(response) {
-
+                        var elem = angular.element(document.querySelector('#row-'+dish_id));
+                        elem.hide();
                     }).error(function(response) {
 
                     });
@@ -228,7 +235,7 @@
             {
                 // var attr = $(this).attr('test');
                 //  alert(attr);
-                $(this).parent().parent().parent().remove();
+                $(this).parent().parent().parent().hide();
 
             }</script>
 
@@ -258,13 +265,6 @@
         <!-- WoW Plugins -->
         <script src="{{ asset('js/wow.min.js')}}"></script>
 
-        <script type='text/javascript' src='{{ asset('js/woocommerce.js')}}'></script>
-        <script type='text/javascript'>
-                    /* <![CDATA[ */
-                    var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
-            var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
-            /* ]]> */
-        </script>
         <script type='text/javascript' src='{{ asset('js/single-product.min.js')}}'></script>
 
         <script type='text/javascript' src="{{ asset('js/bootstrap-slider.js')}}"></script>
