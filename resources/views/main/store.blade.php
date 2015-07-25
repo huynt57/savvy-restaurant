@@ -37,7 +37,7 @@
                     <h4>Categories</h4>
                     <ul class="list-category">
                         <?php foreach ($categories as $category): ?>                       
-                            <li id="cat-<?php echo $category->category_id ?>"><a ng-class="class" href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
+                        <li class="menu-cat" id="cat-<?php echo $category->category_id ?>"><a ng-class="class" href="#" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
                         <?php endforeach; ?>
                     </ul>
                     <hr />
@@ -59,8 +59,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row product-list view-list">
+                    <div class="row" id="loading" style="height: 700px;">
+                        <img src="{{asset('img/bx_loader.gif')}}" style=" position: absolute;
+                             top: 0; bottom:0; left: 0; right:0;
+                             margin: auto;"/>
+                    </div>
+                    <div class="row product-list view-list" id="list-product">
                         <div class="col-sm-12 product-item" ng-repeat="item in data">
                             <div class="rst-thumbnail">
                                 <a href="<?php echo url('dish') ?>/@{{item.dish_name}}-@{{item.dish_id}}"><img src="@{{item.dish_image}}" alt="" /></a>
@@ -71,7 +75,7 @@
                             </div>
                             <div class="rst-product-info">
                                 <h3><a href="">@{{item.dish_name}}</a></h3>
-                                <span class="price-product"><sup>$</sup>@{{item.dish_price}}</span>
+                                <span class="price-product"><sup>$</sup> @{{item.dish_price}}</span>
                                 <hr />
                                 <div class="rst-product-content">
                                     <p>@{{item.dish_description}}</p>
@@ -79,9 +83,9 @@
                             </div>
                         </div>
                     </div><!-- End Product List-->
-                    <nav class="wp-pagenavi">
+                    <nav class="wp-pagenavi" ng-if="pages.length != 0">
                         <a class="btn btn-sm btn-success page-prev" href="#">Previous</a>
-                        <a class="" ng-repeat="page in pages" id="page-@{{page}}" ng-click="setActive(@{{page}})">@{{page}}</a>
+                        <a class="page-numbers" ng-repeat="page in pages" id="page-@{{page}}" ng-click="setActive(@{{page}})">@{{page}}</a>
 
                         <a class="btn btn-sm btn-success page-next" href="#">Next</a>
                     </nav>
@@ -93,72 +97,111 @@
 </div>
 
 <script type="text/javascript">
-            function StoreController($scope, $http, $element) {
+                    function StoreController($scope, $http, $element) {
 
-            $scope.loadDish = function(id) {
-            //  $event.currentTarget.class = "red";
-            var elem = angular.element(document.querySelector('#cat-' + id));
-                    elem.addClass('active');
-                    $http({
-                    method: 'POST',
-                            url: 'listDishByCategory',
-                            data: $.param({id: id}),
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                    }).success(function(response) {
+    $scope.loadDish = function(id) {
+        //  $event.currentTarget.class = "red";
+        var elem = angular.element(document.querySelector('#loading'));
+        var setActive = angular.element(document.querySelector('#cat-' + id));
+        var list = angular.element(document.querySelector('#list-product'));
+        var menu = angular.element(document.querySelector('.active'));
+        list.hide();
+        elem.show();
+        menu.removeClass('active');
+       
+        var record = 3;
+        setActive.addClass('active');
+        $http({
+            method: 'POST',
+            url: 'listDishByCategory',
+            data: $.param({
+                id: id, 
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+        }).success(function(response) {
+            elem.hide();
+            list.show();
             $scope.data = response;
-                    var num = response.length / 5;
-                    pages = [];
-                    for (var i = 1; i <= num; i++)
-            {
-            pages.push(i);
+            var num = 0;
+            if (response.count % record == 0) {
+                num = response.count / record
+            } else {
+                num = response.count / record + 1;
+            }
+            pages = [];
+            for (var i = 1; i <= num; i++) {
+                pages.push(i);
             }
             $scope.pages = pages;
-                    // console.log(response);
-            }).error(function(response) {
+            // console.log(response);
+        }).error(function(response) {
 
-            });
-            };
-                    $scope.addCart = function(dish_id) {
-                    $http({
-                    method: 'POST',
-                            url: 'addCart',
-                            data: $.param({dish_id: dish_id}),
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                    }).success(function(response){
+        });
+    };
+    $scope.addCart = function(dish_id) {
+        $http({
+            method: 'POST',
+            url: 'addCart',
+            data: $.param({
+                dish_id: dish_id
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+        }).success(function(response) {
 
-                    }).error(function(response) {
+        }).error(function(response) {
 
-                    });
-                    };
-                    $scope.init = function()
-                    {
-                    $http({
-                    method: 'GET',
-                            url: 'getDish',
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                    }).success(function(response){
-                        
-                    $scope.data = response;
-                            var num = response.length / 5;
-                            pages = [];
-                            for (var i = 1; i <= num; i++)
-                    {
-                    pages.push(i);
-                    }
-                    $scope.pages = pages;
-                    }).error(function(response) {
+        });
+    };
+    $scope.loadPage = function(page) {
+        var elem = angular.element(document.querySelector('#loading'));
+        var list = angular.element(document.querySelector('#list-product'));
+        list.hide();
+        elem.show();
+        var record = 3;
+        $http({
+            method: 'POST',
+            url: 'getDish',
+            data: $.param({
+                page: page,
+                number: record
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+        }).success(function(response) {
+            elem.hide();
+            list.show();
+            // users from your api
 
-                    });
-                    };
-                    
-                    $scope.setActive = function(id) {
-                         var elem = angular.element(document.querySelector('#page-' + id));
-                    elem.addClass('btn btn-sm btn-success page-numbers current');
-                    }
+            $scope.data = response.results;
+            var num = 0;
+            if (response.count % record == 0) {
+                num = response.count / record
+            } else {
+                num = response.count / record + 1;
             }
-
-    
-
-
+            pages = [];
+            for (var i = 1; i <= num; i++) {
+                pages.push(i);
+            }
+            $scope.pages = pages;
+        });
+    };
+    $scope.init = function() {
+        $scope.loadPage(1);
+    };
+    $scope.setActive = function(id) {
+        $scope.loadPage(id);
+        var elem = angular.element(document.querySelector('#page-' + id));
+        var other = angular.element(document.querySelector('.page-numbers'));
+        // elem.removeClass('btn btn-sm btn-success current');
+        elem.addClass('btn btn-sm btn-success current');
+        other.removeClass('btn btn-sm btn-success current');
+    }
+}
 </script>
 @endsection

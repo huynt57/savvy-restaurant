@@ -35,7 +35,7 @@ Route::get('detail', 'MainController@detail');
 
 Route::post('processCheckOut', 'CartController@checkout');
 
-Route::get('getDish', 'DishController@getDishes');
+Route::post('getDish', 'DishController@getDishes');
 
 Route::post('sendContact', 'ContactController@sendContact');
 
