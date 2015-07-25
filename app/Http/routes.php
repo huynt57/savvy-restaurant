@@ -37,7 +37,7 @@ Route::post('processCheckOut', 'CartController@checkout');
 
 Route::post('getDish', 'DishController@getDishes');
 
-Route::post('sendContact', 'ContactController@sendContact');
+Route::post('sendcontact', 'ContactController@sendContact');
 
 Route::post('listDishByCategory', 'DishController@listDishByCategory');
 

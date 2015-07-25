@@ -44,15 +44,16 @@
                     <p class="stock-status"><span class="rst-stock in-stock"></span> In stock</p>
 
                     <button class="btn btn-success btn-lg btn-add-to-cart" onclick = "addCartWithNumber()">Add to cart</button>
-                    <div class="inline qty-large quantity"><input id="number" type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="2" title="Qty" class="input-text qty text" size="4" /></div>
+                    
+                        
+                    <div class="inline qty-large quantity"><input type="number" id="number"step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="2" title="Qty" class="input-text qty text" size="4" /></div>
 
                     <hr />
                     <div class="rst-share">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="http://www.facebook.com/share.php?u=<?php echo url('dish') ."/". $dish->dish_name . "-" . $dish->dish_id ?>&title=<?php echo $dish->dish_name?>"><i class="fa fa-facebook"></i></a>
+                        <a href="http://twitter.com/intent/tweet?status=<?php echo $dish->dish_name?>+<?php echo url('dish') ."/". $dish->dish_name . "-" . $dish->dish_id ?>"><i class="fa fa-twitter"></i></a>
+                        <a href="https://plus.google.com/share?url=<?php echo url('dish') ."/". $dish->dish_name . "-" . $dish->dish_id ?>"><i class="fa fa-google-plus"></i></a>
+                      
                     </div>
                 </div>
             </div>

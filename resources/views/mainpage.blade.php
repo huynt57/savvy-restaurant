@@ -52,6 +52,7 @@
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js')}}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+        <script src="{{ asset('/js/validator.js') }}"></script>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -123,10 +124,11 @@
                                 $total = 0;
                                 ?>
                                 <div class="rst-cart">
-                                    <a href="#" class="rst-cart-icon"><span><?php if (count($cart) >= 3) echo count($cart) - 3 ?></span></a>
+                                    <a href="#" class="rst-cart-icon"><span><?php if (Session::has('cart')): ?><?php if (count($cart) >= 3) echo count($cart) - 3 ?><?php endif;?>
+                                        <?php if (!Session::has('cart')): ?> <?php echo '0' ?> <?php endif;?></span></a>
                                     <div class="rst-form-login rst-cart-info">
                                         <div class="rst-list-product">
-                                            <?php if (count($cart) > 3): ?>
+                                            <?php if (Session::has('cart')): ?>
                                                 <?php foreach ($cart as $key => $value): ?>
                                                         <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
                                                         <div class="rst-product-item">
@@ -192,7 +194,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="rst-backtop" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="rst-backtop" href="#wrapper"><i class="fa fa-chevron-up"></i></a>
                     </div>
                 </div>
             </footer>
@@ -264,6 +266,13 @@
 
         <!-- WoW Plugins -->
         <script src="{{ asset('js/wow.min.js')}}"></script>
+        <script type='text/javascript' src='{{ asset('js/woocommerce.js')}}'></script>
+        <script type='text/javascript'>
+                    /* <![CDATA[ */
+                    var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
+            var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
+            /* ]]> */
+        </script>
 
         <script type='text/javascript' src='{{ asset('js/single-product.min.js')}}'></script>
 

@@ -35,21 +35,21 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name" data-validation-required-message="Please enter your name.">
-                                    <p class="help-block text-danger"></p>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name" data-validation-required-message="Please enter your name." required>
+                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" data-validation-required-message="Please enter your email address.">
-                                    <p class="help-block text-danger"></p>
+                                    <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" data-validation-required-message="Please enter your email address." required>
+                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="comments" class="form-control" rows="10" placeholder="Comments" data-validation-required-message="Please enter a message."></textarea>
-                            <p class="help-block text-danger"></p>
+                            <textarea id="message" name="comments" class="form-control" rows="10" placeholder="Comments" data-validation-required-message="Please enter a message." required></textarea>
+                             <div class="help-block with-errors"></div>
                         </div>
 
 
@@ -92,4 +92,9 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function() {
+         $('#contactForm').validator();
+    });
+</script>
 @endsection

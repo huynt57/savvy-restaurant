@@ -2,6 +2,21 @@
 
 @section('content')
 <div id="content">
+     <div id="rst-banner" data-background="img/post/banner02.jpg">
+        <div class="container">
+            <div class="rst-inner-banner clearfix">
+                <div class="rst-banner-content pull-left">
+                    <h1>Checkout</h1>
+                    <p>We opened. Tasty food &amp; drinks.</p>
+                </div>
+                <ul class="breadcrumb pull-right">
+                    <li><a href="<?php echo url('main')?>">Home</a></li>
+                    <li><a href="<?php echo url('checkout')?>">Checkout</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- Banner -->
+
     <div class="container rst-main-content">
         <?php if (Session::get('message') != ""): ?>
             <div class="row">
@@ -69,28 +84,32 @@
         <br /><br /><br />
         <div class="rst-form-input form-checkout">
             <div class="row">
-                <form method="post" action="<?php echo url('processCheckOut') ?>">
+                <form method="post" action="<?php echo url('processCheckOut') ?>" id="checkout">
                     <div class="col-sm-6 checkout-address">
                         <h4><span class="rst-circle">1</span>Address</h4>
                         <div class="form-group">
                             <label>Full name</label>
-                            <input type="text" name="name" class="form-control" placeholder="">
+                            <input type="text" name="name" class="form-control" placeholder="" required>
+                            <div class="help-block with-errors"></div>
                         </div>
 
                         <div class="form-group">
                             <label>Adress</label>
-                            <input type="text" name="address" class="form-control" placeholder="">
+                            <input type="text" name="address" class="form-control" placeholder="" required>
+                            <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="col-sm-6 checkout-address">
                          <h4><span class="rst-circle">1</span>Address</h4>
                         <div class="form-group">
                             <label>Phone number</label>
-                            <input type="text" name="phone" class="form-control" value="+1" placeholder="">
+                            <input type="text" name="phone" class="form-control" placeholder="" required>
+                            <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
                             <label>Comments</label>
                             <textarea class="form-control" name="comments" rows="10" placeholder=""></textarea>
+                            <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -105,4 +124,10 @@
         </div>
     </div><!-- End Content -->
 </div>
+
+<script>
+    $(document).ready(function() {
+         $('#checkout').validator();
+    });
+</script>
 @endsection

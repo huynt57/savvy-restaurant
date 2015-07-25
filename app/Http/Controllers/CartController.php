@@ -25,6 +25,7 @@ class CartController extends Controller {
 
     public function addCart(Request $request) {
         $dish_id = \StringHelper::filterString($request->input('dish_id'));
+        Session::put('cart', 'true');
         if (Session::has($dish_id)) {
             //echo 'tt';
             $value = Session::get($dish_id);
@@ -35,7 +36,7 @@ class CartController extends Controller {
             Session::put($dish_id, 1);
         }
         //  echo Session::get($dish_id);
-        //Session::flush();
+        Session::flush();
     }
 
     public function addCartWithNumber(Request $request) {

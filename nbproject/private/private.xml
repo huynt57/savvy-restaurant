@@ -4,26 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/CartController.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/detail.blade.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/SearchController.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/reservation.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/ContactController.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/User.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/homepage.blade.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/OrderDetail.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/DishCategory.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/public/js/validator.js</file>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Kernel.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/dish/detail.blade.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/menu.blade.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/Order.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/Controller.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/checkout.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/contact.blade.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/DishController.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/checkout.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/store.blade.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/resources/views/errors/404.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/mainpage.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/routes.php</file>
-            <file>file:/E:/xampp/htdocs/restaurant/resources/views/search/index.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/config/session.php</file>
         </group>
     </open-files>
 </project-private>

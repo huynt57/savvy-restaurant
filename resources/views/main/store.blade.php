@@ -36,6 +36,7 @@
                 <div class="col-sm-3">
                     <h4>Categories</h4>
                     <ul class="list-category">
+                        <li class="menu-cat" id="all"><a ng-click="init()" href="#">All</a></li>
                         <?php foreach ($categories as $category): ?>                       
                         <li class="menu-cat" id="cat-<?php echo $category->category_id ?>"><a ng-class="class" href="#" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
                         <?php endforeach; ?>
@@ -84,10 +85,10 @@
                         </div>
                     </div><!-- End Product List-->
                     <nav class="wp-pagenavi" ng-if="pages.length != 0">
-                        <a class="btn btn-sm btn-success page-prev" href="#">Previous</a>
-                        <a class="page-numbers" ng-repeat="page in pages" id="page-@{{page}}" ng-click="setActive(@{{page}})">@{{page}}</a>
+                        <a class="btn btn-sm btn-success page-prev" href="" ng-click="previous()">Previous</a>
+                        <a href="#" class="page-numbers" ng-repeat="page in pages" id="page-@{{page}}" ng-click="setActive(@{{page}})">@{{page}}</a>
 
-                        <a class="btn btn-sm btn-success page-next" href="#">Next</a>
+                        <a class="btn btn-sm btn-success page-next" href="" ng-click="next()">Next</a>
                     </nav>
                 </div>
             </div>
@@ -98,9 +99,11 @@
 
 <script type="text/javascript">
                     function StoreController($scope, $http, $element) {
-
+                        $scope.currentPage = 0;
+                        $scope.records = 0;
     $scope.loadDish = function(id) {
         //  $event.currentTarget.class = "red";
+        
         var elem = angular.element(document.querySelector('#loading'));
         var setActive = angular.element(document.querySelector('#cat-' + id));
         var list = angular.element(document.querySelector('#list-product'));
@@ -125,11 +128,13 @@
             list.show();
             $scope.data = response;
             var num = 0;
+             
             if (response.count % record == 0) {
                 num = response.count / record
             } else {
                 num = response.count / record + 1;
             }
+            $scope.records = num;
             pages = [];
             for (var i = 1; i <= num; i++) {
                 pages.push(i);
@@ -176,7 +181,7 @@
             elem.hide();
             list.show();
             // users from your api
-
+           
             $scope.data = response.results;
             var num = 0;
             if (response.count % record == 0) {
@@ -184,6 +189,7 @@
             } else {
                 num = response.count / record + 1;
             }
+             $scope.records = num;
             pages = [];
             for (var i = 1; i <= num; i++) {
                 pages.push(i);
@@ -192,16 +198,37 @@
         });
     };
     $scope.init = function() {
-        $scope.loadPage(1);
+        var activeAll = angular.element(document.querySelector('#all'));
+        var menu = angular.element(document.querySelector('.active'));
+        activeAll.addClass('active');
+        menu.removeClass('active');
+        $scope.setActive(1);
+       
     };
+    
     $scope.setActive = function(id) {
         $scope.loadPage(id);
         var elem = angular.element(document.querySelector('#page-' + id));
-        var other = angular.element(document.querySelector('.page-numbers'));
+        var other = angular.element(document.querySelector('.current'));
         // elem.removeClass('btn btn-sm btn-success current');
         elem.addClass('btn btn-sm btn-success current');
         other.removeClass('btn btn-sm btn-success current');
+        $scope.currentPage = id;
     }
+    
+    $scope.next = function() {
+        if($scope.currentPage < $scope.records ) {
+            $scope.setActive($scope.currentPage + 1);  
+        }
+    }
+    
+    $scope.previous = function() {
+        if($scope.currentPage > 1 ) {
+            $scope.setActive($scope.currentPage - 1);  
+        }
+    }
+    
 }
+
 </script>
 @endsection
