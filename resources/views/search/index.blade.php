@@ -35,17 +35,8 @@
             <div class="row">
               
                 <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <form action="#" class="rst-form-input">
-                                <div class="form-group">
-                                    <select class="form-control" name="country" id="InputCountry">
-                                        <option value="Popular">Popular</option>
-                                        <option value="Price">Price</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="row" style="margin-bottom: 20px;">
+                        
                         <div class="col-sm-9">
                             <div class="rst-view">
                                 <a href="#" class="rst-tile"></a>

@@ -37,21 +37,18 @@
                     <h4>Categories</h4>
                     <ul class="list-category">
                         <?php foreach ($categories as $category): ?>                       
-                            <li ><a ng-class="class" href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
+                            <li id="cat-<?php echo $category->category_id ?>"><a ng-class="class" href="#" onclick="setActive()" ng-click="loadDish(<?php echo $category->category_id ?>)"><?php echo $category->category_name; ?></a></li>       
                         <?php endforeach; ?>
                     </ul>
                     <hr />
 
                 </div>
                 <div class="col-sm-9">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 20px;">
                         <div class="col-sm-3">
                             <form action="#" class="rst-form-input">
                                 <div class="form-group">
-                                    <select class="form-control" name="country" id="InputCountry">
-                                        <option value="Popular">Popular</option>
-                                        <option value="Price">Price</option>
-                                    </select>
+
                                 </div>
                             </form>
                         </div>
@@ -84,11 +81,8 @@
                     </div><!-- End Product List-->
                     <nav class="wp-pagenavi">
                         <a class="btn btn-sm btn-success page-prev" href="#">Previous</a>
-                        <span class="btn btn-sm btn-success page-numbers current">1</span>
-                        <a class="page-numbers" href="#">2</a>
-                        <a class="page-numbers" href="#">3</a>
-                        <a class="page-numbers" href="#">4</a>
-                        <a class="page-numbers" href="#">5</a>
+                        <a class="" ng-repeat="page in pages" id="page-@{{page}}" ng-click="setActive(@{{page}})">@{{page}}</a>
+
                         <a class="btn btn-sm btn-success page-next" href="#">Next</a>
                     </nav>
                 </div>
@@ -99,16 +93,26 @@
 </div>
 
 <script type="text/javascript">
-            function StoreController($scope, $http) {
+            function StoreController($scope, $http, $element) {
+
             $scope.loadDish = function(id) {
             //  $event.currentTarget.class = "red";
-            $http({
-            method: 'POST',
-                    url: 'listDishByCategory',
-                    data: $.param({id: id}),
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-            }).success(function(response) {
+            var elem = angular.element(document.querySelector('#cat-' + id));
+                    elem.addClass('active');
+                    $http({
+                    method: 'POST',
+                            url: 'listDishByCategory',
+                            data: $.param({id: id}),
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    }).success(function(response) {
             $scope.data = response;
+                    var num = response.length / 5;
+                    pages = [];
+                    for (var i = 1; i <= num; i++)
+            {
+            pages.push(i);
+            }
+            $scope.pages = pages;
                     // console.log(response);
             }).error(function(response) {
 
@@ -128,23 +132,32 @@
                     };
                     $scope.init = function()
                     {
-                         $http({
-                            method: 'GET',
+                    $http({
+                    method: 'GET',
                             url: 'getDish',
                             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                         }).success(function(response){
-                         $scope.data = response;
-                            }).error(function(response) {
+                    }).success(function(response){
+                        
+                    $scope.data = response;
+                            var num = response.length / 5;
+                            pages = [];
+                            for (var i = 1; i <= num; i++)
+                    {
+                    pages.push(i);
+                    }
+                    $scope.pages = pages;
+                    }).error(function(response) {
 
-                            });
+                    });
                     };
+                    
+                    $scope.setActive = function(id) {
+                         var elem = angular.element(document.querySelector('#page-' + id));
+                    elem.addClass('btn btn-sm btn-success page-numbers current');
+                    }
             }
 
-    function setActive()
-    {
-    $('li').removeClass('active');
-            $(this).parent().addClass('active');
-    }
+    
 
 
 </script>

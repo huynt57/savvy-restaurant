@@ -39,5 +39,19 @@ class DishController extends Controller {
                         . 'JOIN tbl_category ON tbl_category_dish.category_id = tbl_category.category_id');
         return $results;
     }
+    
+    public function listDishByProperty() {
+        $type = \StringHelper::filterString($request->route('type'));
+        if($type == "1")
+        {
+            $results = DB::select('select * from tbl_dish JOIN tbl_category_dish ON tbl_dish.dish_id = tbl_category_dish.dish_id '
+                        . 'JOIN tbl_category ON tbl_category_dish.category_id = tbl_category.category_id ORDER BY tbl_dish.dish_id');
+        } else {
+            $results = DB::select('select * from tbl_dish JOIN tbl_category_dish ON tbl_dish.dish_id = tbl_category_dish.dish_id '
+                        . 'JOIN tbl_category ON tbl_category_dish.category_id = tbl_category.category_id ORDER BY tbl_dish.dish_price');
+        }
+        
+        return $results;
+    }
 
 }

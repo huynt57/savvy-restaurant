@@ -76,12 +76,14 @@
                             <label>Full name</label>
                             <input type="text" name="name" class="form-control" placeholder="">
                         </div>
-                    
+
                         <div class="form-group">
                             <label>Adress</label>
                             <input type="text" name="address" class="form-control" placeholder="">
                         </div>
-
+                    </div>
+                    <div class="col-sm-6 checkout-address">
+                         <h4><span class="rst-circle">1</span>Address</h4>
                         <div class="form-group">
                             <label>Phone number</label>
                             <input type="text" name="phone" class="form-control" value="+1" placeholder="">

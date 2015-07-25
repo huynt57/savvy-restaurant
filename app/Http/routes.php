@@ -41,6 +41,8 @@ Route::post('sendContact', 'ContactController@sendContact');
 
 Route::post('listDishByCategory', 'DishController@listDishByCategory');
 
+Route::post('listDishByProperty', 'DishController@listDishByProperty');
+
 Route::post('bookTable', 'ReservationController@bookTable');
 
 Route::post('addCart', 'CartController@addCart');
