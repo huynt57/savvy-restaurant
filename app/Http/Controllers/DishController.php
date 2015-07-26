@@ -61,4 +61,49 @@ class DishController extends Controller {
         return $results;
     }
 
+    public function listDishAdmin() {
+        return Dish::all();
+    }
+
+    public function createNewDish(Request $request) {
+        $name = \StringHelper::filterString($request->input('name'));
+        $price = \StringHelper::filterString($request->input('price'));
+        $description = \StringHelper::filterString($request->input('description'));
+        $image = \StringHelper::filterString($request->input('image'));
+
+        if ($name != "" && $price != "" && $image != "") {
+            $dish = new Dish;
+            $dish->dish_name = $name;
+            $dish->dish_price = $price;
+            $dish->dish_description = $description;
+            $dish->dis_image = $image;
+            $dish->active = 1;
+            $dish->save();
+        }
+    }
+
+    public function updateDish(Request $request) {
+        $name = \StringHelper::filterString($request->input('name'));
+        $price = \StringHelper::filterString($request->input('price'));
+        $description = \StringHelper::filterString($request->input('description'));
+        $image = \StringHelper::filterString($request->input('image'));
+        $dish_id = \StringHelper::filterString($request->input('dish_id'));
+
+        if ($name != "" && $price != "" && $image != "") {
+            $dish = Dish::where('dish_id', $dish_id);
+            $dish->dish_name = $name;
+            $dish->dish_price = $price;
+            $dish->dish_description = $description;
+            $dish->dish_image = $image;
+            $dish->active = 1;
+            $dish->save();
+        }
+    }
+
+    public function deleteDish(Request $request) {
+        $dish_id = \StringHelper::filterString($request->input('dish_id'));
+        $deletedRows = Dish::where('dish_id', $dish_id)->delete();
+        $catRow = \App\DishCategory::where('dish_id', $dish_id)->delete();
+    }
+
 }
