@@ -61,7 +61,7 @@ class DishController extends Controller {
         return $results;
     }
 
-    public function listDishAdmin() {
+    public static function listDishAdmin() {
         return Dish::all();
     }
 
@@ -104,6 +104,12 @@ class DishController extends Controller {
         $dish_id = \StringHelper::filterString($request->input('dish_id'));
         $deletedRows = Dish::where('dish_id', $dish_id)->delete();
         $catRow = \App\DishCategory::where('dish_id', $dish_id)->delete();
+    }
+
+    public function detailDish(Request $request) {
+        $dish_id = \StringHelper::filterString($request->input('dish_id'));
+        $results = DB::select('select * from tbl_dish WHERE tbl_dish.dish_id = :dish_id', ['dish_id' => $dish_id]);
+        return $results;
     }
 
 }

@@ -19,7 +19,7 @@ class OrderController extends Controller {
 		//
 	}
 
-	public function listOrderAdmin()
+	public static function listOrderAdmin()
         {
             return Order::all();
         }

@@ -55,6 +55,14 @@ Route::get('search', 'SearchController@index');
 
 Route::get('dish/{name}-{dish_id}', 'DishController@DishDetail')->where('name', '[A-Za-z-]+');
 
+Route::get('admin/dish', 'AdminController@dishAdmin');
+
+Route::get('admin/order', 'AdminController@orderAdmin');
+
+Route::get('admin/dish/listdish', 'DishController@listDishAdmin');
+
+Route::post('admin/dish/detail','DishController@detailDish');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

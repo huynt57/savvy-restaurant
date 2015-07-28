@@ -4,18 +4,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/CartController.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/resources/views/admin.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/reservation.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/ContactController.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/homepage.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/AdminController.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/public/js/validator.js</file>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/Kernel.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/dish/detail.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/contact.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/checkout.blade.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/DishController.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/main/store.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/resources/views/mainpage.blade.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/app/Http/routes.php</file>
             <file>file:/E:/xampp/htdocs/restaurant/config/session.php</file>
+            <file>file:/E:/xampp/htdocs/restaurant/app/Http/Controllers/OrderController.php</file>
         </group>
     </open-files>
 </project-private>
