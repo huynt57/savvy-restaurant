@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-<div id="main" ng-app="" ng-controller="DishController">
+<div id="main" ng-app="" ng-controller="OrderController">
     <div class="container-fluid">
         <div class="page-header">
             <div class="pull-left">
@@ -24,12 +24,12 @@
         <div class="breadcrumbs">
             <ul>
                 <li>
-                    <a href="more-login.html">Home</a>
+                    <a href="<?php echo url('main') ?>">Home</a>
                     <i class="icon-angle-right"></i>
                 </li>
 
                 <li>
-                    <a href="tables-dynamic.html">Orders</a>
+                    <a href="<?php echo url('admin/order') ?>">Orders</a>
                 </li>
             </ul>
             <div class="close-bread">
@@ -85,48 +85,65 @@
             </div>
         </div>
     </div>
-    <div id="modal-detail" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-repeat="item in detail">
+    <div id="modal-detail" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">@{{item.dish_name}}</h3>
+            <h3 id="myModalLabel">Detail Order</h3>
         </div>
         <div class="modal-body">
-            <p>One fine body…</p>
+            <table class="table table-hover table-nomargin table-bordered">
+                            <thead>
+                                <tr>                                 
+                                    <th>Dish ID</th>
+                                    <th>Dish Name</th>
+                                    <th>Number</th>        
+                                </tr>
+                            </thead>
+                            <tbody>                            
+                                <tr ng-repeat="item in detail">
+                                    <td>@{{item.dish_id}}</td>
+                                    <td>@{{item.dish_name}}</td>
+                                    <td>@{{item.dish_number}}</td>                                 
+                                </tr>
+                            </tbody>
+                        </table>
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
         </div>
     </div>
 </div>
 
 
 <script>
- function DishController($http, $scope) {
+ function OrderController($http, $scope) {
      $scope.detailOrder = function(id) {
+        // $scope.sum = 0;
          $http({
              method: 'POST',
-             url: '<?php echo url('
-             admin / dish / detail ') ?>',
+             url: '<?php echo url('admin/order/detail') ?>',
              data: $.param({
-                 dish_id: id
+                 order_id: id
              }),
              headers: {
                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
              },
          }).success(function(response) {
              $scope.detail = response;
+             //for (var i in response){
+                //$scope.sum += i.dish_price*i.dish_number;
+             //   alert(i.dish_price);
+            // }
              //alert('t');
          }).error(function(response) {
              // console.log(response);
          });
      }
      
-     $scope.deleteDish = function(id) {
+     $scope.deleteOrder = function(id) {      
         $http({
              method: 'POST',
-             url: '<?php echo url('
-             admin/dish/delete ') ?>',
+             url: '<?php echo url('admin/dish/delete') ?>',
              data: $.param({
                  dish_id: id
              }),
@@ -134,14 +151,12 @@
                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
              },
          }).success(function(response) {
-             $scope.detail = response;
+             $scope.detail = response;             
              //alert('t');
          }).error(function(response) {
              // console.log(response);
          }); 
      }
-
  }
-
 </script>
 @endsection

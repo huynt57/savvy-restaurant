@@ -2,7 +2,8 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Response;
+use DB;
 use Illuminate\Http\Request;
 use App\Order;
 use App\OrderDetail;
@@ -27,13 +28,20 @@ class OrderController extends Controller {
         public function orderDetail(Request $request)
         {
              $order_id = \StringHelper::filterString($request->input('order_id'));
-             $order_detail = OrderDetail::where('order_id', $order_id);
-             return $order_detail;
+             $results = DB::select('SELECT * FROM tbl_order JOIN tbl_order_detail ON tbl_order.id = tbl_order_detail.order_id '
+                     . ' JOIN tbl_dish ON tbl_order_detail.dish_id = tbl_dish.dish_id WHERE tbl_order.id = :order_id', ['order_id' => $order_id]);
+             return $results;
         }
         
         public function updateOrder()
         {
             
+        }
+        
+        public function deleteOrder(Request $request) {
+             $order_id = \StringHelper::filterString($request->input('order_id'));
+             $deletedRows = Order::where('id', $order_id)->delete();
+             $catRow = OrderDetail::where('order_id', $order_id)->delete();
         }
 
 }

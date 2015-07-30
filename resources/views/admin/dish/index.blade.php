@@ -66,11 +66,11 @@
                                     <td>{{ $dish -> dish_name}}</td>
                                     <td>${{ $dish -> dish_price}}</td>
 
-                                    <td><img src="{{ asset($dish -> dish_image)}}"</td>
+                                    <td><img src="{{ asset($dish -> dish_image)}}" /></td>
                                     <td style="width: 60%;">{{ $dish -> dish_description}}</td>
                                     <td style="width: 10%">
                                         <a href="#" ng-click="detailDish({{$dish -> dish_id}})">Detail</a>
-                                        <a href="#" ng-click="editDish({{$dish -> dish_id}})">Edit</a>
+                                        <a href="#" ng-click="detailDish({{$dish -> dish_id}})">Edit</a>
                                         <a href="#" ng-click="deleteDish({{$dish -> dish_id}})">Delete</a>
                                     </td>
                                 </tr>
@@ -84,16 +84,46 @@
         </div>
     </div>
     <div id="modal-detail" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <img src="{{asset('img/bx_loader.gif')}}" style=" position: absolute;
+                             top: 0; bottom:0; left: 0; right:0;
+                             margin: auto;" id="loading"/>
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">@{{detail.dish_name}}</h3>
+            <h3 id="modal-label">@{{detail.dish_name}}</h3>
         </div>
         <div class="modal-body">
-            <p>@{{detail.dish_description}}</p>
+            <img src="<?php echo url()?>/@{{detail.dish_image}}"  style="
+    height: 150px;
+    float: left;
+    margin-right: 20px;
+    " id="image"/>
+            <p id="des">@{{detail.dish_description}}</p>
+            <p id="price">Price: $@{{detail.dish_price}}</p>
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    
+        <div id="modal-edit" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <img src="{{asset('img/bx_loader.gif')}}" style=" position: absolute;
+                             top: 0; bottom:0; left: 0; right:0;
+                             margin: auto;" id="loading"/>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="modal-label">@{{detail.dish_name}}</h3>
+        </div>
+        <div class="modal-body">
+            <img src="<?php echo url()?>/@{{detail.dish_image}}"  style="
+    height: 150px;
+    float: left;
+    margin-right: 20px;
+    " id="image"/>
+            <p id="des">@{{detail.dish_description}}</p>
+            <p id="price">Price: $@{{detail.dish_price}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
         </div>
     </div>
 </div>
@@ -104,7 +134,11 @@
      $scope.detail = {};
      $scope.detailDish = function(id) {
          $("#modal-detail").modal("show");
-         $("#myModalLabel").hide();
+         $("#loading").show();
+         $("#modal-label").hide();
+         $("#des").hide();
+         $('#price').hide();
+         $('#image').hide();
          $http({
              method: 'POST',
              url: '<?php echo url('admin/dish/detail') ?>',
@@ -115,9 +149,13 @@
                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
              },
          }).success(function(response) {
-              $("#myModalLabel").show();
+             $("#loading").hide();
+             $("#modal-label").show();
+             $("#des").show();
+             $('#price').show();
+             $('#image').show();
              $scope.detail = response[0];
-             //viet day a ??
+             
          }).error(function(response) {
              // console.log(response);
          });
@@ -143,7 +181,7 @@
      $scope.deleteDish = function(id) {
         $http({
              method: 'POST',
-             url: '<?php echo url('admin/dish/detail') ?>',
+             url: '<?php echo url('admin/dish/delete') ?>',
              data: $.param({
                  dish_id: id
              }),
@@ -151,7 +189,7 @@
                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
              },
          }).success(function(response) {
-             $scope.detail = response;
+            // $scope.detail = response;
              //alert('t');
          }).error(function(response) {
              // console.log(response);

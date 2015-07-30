@@ -111,5 +111,5 @@ class DishController extends Controller {
         $results = DB::select('select * from tbl_dish WHERE tbl_dish.dish_id = :dish_id', ['dish_id' => $dish_id]);
         return $results;
     }
-
+    
 }

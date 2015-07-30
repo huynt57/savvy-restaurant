@@ -63,6 +63,10 @@ Route::get('admin/dish/listdish', 'DishController@listDishAdmin');
 
 Route::post('admin/dish/detail','DishController@detailDish');
 
+Route::post('admin/dish/delete','DishController@deleteDish');
+
+Route::post('admin/order/detail','OrderController@orderDetail');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
