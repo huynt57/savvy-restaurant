@@ -146,6 +146,10 @@
         });
     };
     $scope.addCart = function(dish_id, dish_price, dish_name) {
+        toastr.options = {
+            "positionClass": "toast-top-center",
+        };
+        toastr["info"]("Buying, Please wait !!");
         $http({
             method: 'POST',
             url: 'addCart',
@@ -174,9 +178,12 @@
                     
                 },
             });
+            
+           toastr["success"]("Awesome !!!. Buy Success !!");
+            
 
         }).error(function(response) {
-
+            toastr["error"]("Oop !!!. Something wrong :(. Please try again later");
         });
     };
     $scope.loadPage = function(page) {

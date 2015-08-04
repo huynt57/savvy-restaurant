@@ -54,7 +54,7 @@ class CartController extends Controller {
         $cart = Cart::content();
         $count = Cart::count();
         $total = Cart::total();
-      
+
         return Response::json(array('content' => $cart, 'count' => $count, 'total' => $total));
     }
 
@@ -84,11 +84,11 @@ class CartController extends Controller {
                     $order_detail->save();
                 }
             }
-            Session::flush();
-            //echo 'test';
-            // die();
+            Cart::destroy();
+            return Redirect::to(url('menu'))->with('message', 'Order Success !. You can continue buy now !');
+        } else {
+            return Redirect::to(url('checkout'))->with('message', 'Order Fail !. Something Wrong !');
         }
-        return Redirect::to(url('menu'))->with('message', 'Order Success !. You can continue buy now !');
     }
 
 }
