@@ -52,30 +52,28 @@
                         $total = 0;
                         ?>
 
-                        <?php foreach ($cart as $key => $value): ?>
-                            <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
-                                <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
-                                <tr ng-class="class" id="row-<?php echo $key ?>">
+                        <?php $cart = Cart::content();
+                            foreach($cart as $item):
+                        ?>
+                                <tr ng-class="class" id="row-<?php echo $item->id ?>">
                                     <td class="product-name">
-                                        <a class="remove" href="#" ng-click="removeItemCart(<?php echo $key ?>)" onclick="removeItem()"><i class="fa fa-close"></i></a>
-                                        <img class="img-circle" src="img/post/product-card-0<?php echo $item->dish_id % 3 ?>.jpg" alt="" />
-                                        <?php echo $item->dish_name; ?>
+                                        <a class="remove" href="#" ng-click="removeItemCart(<?php echo $item->id ?>)" onclick="removeItem()"><i class="fa fa-close"></i></a>
+                                        <img class="img-circle" src="img/post/product-card-0<?php echo $item->id % 3 ?>.jpg" alt="" />
+                                        <?php echo $item->name; ?>
                                     </td>
-                                    <td>$<?php echo $item->dish_price ?></td>
+                                    <td>$<?php echo $item->price ?></td>
                                     <td>
-                                        <div class="quantity"><input type="number" step="1" min="0"  name="number" value="<?php echo $value ?>" title="Qty" class="input-text qty text" size="4" /></div>
+                                        <div class="quantity"><input type="number" step="1" min="0"  name="number" value="<?php echo $item->qty ?>" title="Qty" class="input-text qty text" size="4" /></div>
                                     </td>
-                                    <td class="price">$<?php echo $value * $item->dish_price ?></td>
+                                    <td class="price">$<?php echo $item->qty * $item->price ?></td>
                                 </tr>
-                                <?php $total+=$value * $item->dish_price ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                               <?php endforeach;?>
 
                         <tr class="subtotal">
                             <th></th>
                             <th></th>
                             <th>subtotal</th>
-                            <th class="price">$<?php echo $total ?></th>
+                            <th class="price">$<?php echo Cart::total(); ?></th>
                         </tr>
                     </tbody>
                 </table>

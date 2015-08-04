@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Response;
 use DB;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Order;
 use App\OrderDetail;
 
@@ -25,37 +26,28 @@ class CartController extends Controller {
 
     public function addCart(Request $request) {
         $dish_id = \StringHelper::filterString($request->input('dish_id'));
-        Session::put('cart', 'true');
-        if (Session::has($dish_id)) {
-            //echo 'tt';
-            $value = Session::get($dish_id);
-            // echo $value;
-            $value++;
-            Session::put($dish_id, $value);
-        } else {
-            Session::put($dish_id, 1);
-        }
-        //  echo Session::get($dish_id);
-        Session::flush();
+        $dish = DB::table('dish')->where('dish_id', $dish_id)->first();
+        $dish_name = $dish->dish_name;
+        $dish_price = $dish->dish_price;
+        Cart::add(array('id' => $dish_id, 'name' => $dish_name, 'qty' => 1, 'price' => $dish_price));
+        //
     }
 
     public function addCartWithNumber(Request $request) {
         $dish_id = \StringHelper::filterString($request->input('dish_id'));
         $number = \StringHelper::filterString($request->input('number'));
-        if (Session::has($dish_id)) {
-            //echo 'tt';
-            $value = Session::get($dish_id);
-            // echo $value;
-            $value+=$number;
-            Session::put($dish_id, $value);
-        } else {
-            Session::put($dish_id, $number);
-        }
+        $dish = DB::table('dish')->where('dish_id', $dish_id)->first();
+        $dish_name = $dish->dish_name;
+        $dish_price = $dish->dish_price;
+        Cart::add(array('id' => $dish_id, 'name' => $dish_name, 'qty' => $number, 'price' => $dish_price));
     }
 
     public function removeItemFromCart(Request $request) {
         $dish_id = \StringHelper::filterString($request->input('dish_id'));
-        Session::forget($dish_id);
+        $rowids = Cart::search(array('id' => $dish_id));
+        foreach ($rowids as $key => $value) {
+            Cart::remove($value);
+        }
     }
 
     public function checkOut(Request $request) {

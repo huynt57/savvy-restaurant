@@ -145,7 +145,7 @@
 
         });
     };
-    $scope.addCart = function(dish_id) {
+    $scope.addCart = function(dish_id, dish_price, dish_name) {
         $http({
             method: 'POST',
             url: 'addCart',

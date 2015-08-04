@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +51,7 @@
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js')}}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-        <script src="{{ asset('/js/validator.js') }}"></script>
+        <script src="{{ asset('/js/validator.js')}}"></script>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -120,36 +119,22 @@
                             </div>
 
                             <div class="rst-account rst-table-cell">
-                                <?php $cart = Session::all();
-                                $total = 0;
-                                ?>
+
                                 <div class="rst-cart">
-                                    <a href="#" class="rst-cart-icon"><span><?php if (Session::has('cart')): ?><?php if (count($cart) >= 3) echo count($cart) - 3 ?><?php endif;?>
-                                        <?php if (!Session::has('cart')): ?> <?php echo '0' ?> <?php endif;?></span></a>
+                                    <a href="#" class="rst-cart-icon"><span><?php echo Cart::count(); ?></span></a>
                                     <div class="rst-form-login rst-cart-info">
                                         <div class="rst-list-product">
-                                            <?php if (Session::has('cart')): ?>
-                                                <?php foreach ($cart as $key => $value): ?>
-                                                        <?php if ($key != '_token' && $key != '_previous' && $key != 'flash'): ?>
-                                                        <div class="rst-product-item">
-                                                                    <?php $item = DB::table('dish')->where('dish_id', $key)->first(); ?>
-                                                            <a href="#"><?php echo $item->dish_name ?><span class="count"><?php
-                                                                    if (!is_array($value)) {
-                                                                        echo $value;
-                                                                    }
-                                                                    ?></span> <span class="price">$<?php {
-                                                            echo $value * $item->dish_price;
-                                                        }
-                                                        ?></span></a>
-                                                        </div>
-            <?php $total+=$value * $item->dish_price ?>
-        <?php endif; ?>
-    <?php endforeach; ?>
-<?php endif; ?>
+                                            <?php $cart = Cart::content();
+                                            foreach ($cart as $row) :
+                                                ?>
+                                                <div class="rst-product-item">
+                                                    <a href="#"><?php echo $row->name; ?><span class="count"><?php echo $row->qty; ?></span> <span class="price">$<?php echo $row->price ?></span></a>
+                                                </div>
+<?php endforeach; ?>
                                         </div>
                                         <div class="rst-checkout">
                                             <a href="<?php echo url('checkout') ?>" class="btn btn-success btn-sm">Check out</a>
-                                            <span class="price">$<?php echo $total ?></span>
+                                            <span class="price">$<?php echo Cart::total(); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +210,7 @@
                         data: $.param({dish_id: dish_id}),
                         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                     }).success(function(response) {
-                        var elem = angular.element(document.querySelector('#row-'+dish_id));
+                        var elem = angular.element(document.querySelector('#row-' + dish_id));
                         elem.hide();
                     }).error(function(response) {
 
