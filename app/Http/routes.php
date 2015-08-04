@@ -47,6 +47,8 @@ Route::post('bookTable', 'ReservationController@bookTable');
 
 Route::post('addCart', 'CartController@addCart');
 
+Route::get('getCartAjax', 'CartController@getCartAjax');
+
 Route::post('addCartWithNumber', 'CartController@addCartWithNumber');
 
 Route::post('removeItemCart', 'CartController@removeItemFromCart');

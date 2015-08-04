@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Response;
 use DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Order;
 use App\OrderDetail;
+use Response;
 
 //use Illuminate\Support\Facades\Session;
 
@@ -48,6 +48,14 @@ class CartController extends Controller {
         foreach ($rowids as $key => $value) {
             Cart::remove($value);
         }
+    }
+
+    public function getCartAjax() {
+        $cart = Cart::content();
+        $count = Cart::count();
+        $total = Cart::total();
+      
+        return Response::json(array('content' => $cart, 'count' => $count, 'total' => $total));
     }
 
     public function checkOut(Request $request) {

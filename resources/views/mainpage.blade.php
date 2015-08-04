@@ -121,20 +121,20 @@
                             <div class="rst-account rst-table-cell">
 
                                 <div class="rst-cart">
-                                    <a href="#" class="rst-cart-icon"><span><?php echo Cart::count(); ?></span></a>
+                                    <a href="#" class="rst-cart-icon"><span id="cart-count"><?php echo Cart::count(); ?></span></a>
                                     <div class="rst-form-login rst-cart-info">
-                                        <div class="rst-list-product">
+                                        <div class="rst-list-product" id="cart-product">
                                             <?php $cart = Cart::content();
                                             foreach ($cart as $row) :
                                                 ?>
                                                 <div class="rst-product-item">
                                                     <a href="#"><?php echo $row->name; ?><span class="count"><?php echo $row->qty; ?></span> <span class="price">$<?php echo $row->price ?></span></a>
                                                 </div>
-<?php endforeach; ?>
+                                            <?php endforeach; ?>
                                         </div>
                                         <div class="rst-checkout">
                                             <a href="<?php echo url('checkout') ?>" class="btn btn-success btn-sm">Check out</a>
-                                            <span class="price">$<?php echo Cart::total(); ?></span>
+                                            <span class="price" id="cart-price">$<?php echo Cart::total(); ?></span>
                                         </div>
                                     </div>
                                 </div>

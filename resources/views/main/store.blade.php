@@ -156,6 +156,24 @@
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
         }).success(function(response) {
+            $.ajax({
+                type: 'GET',
+                url: 'getCartAjax',
+                dataType: 'json',
+                success: function(response) {
+                    $('#cart-count').html(response.count);
+                    $('#cart-price').html(response.total);     
+                    $('#cart-product').empty();
+                    $.each(response.content, function(index, element) {
+                        $('#cart-product').append(
+                                 '<div class="rst-product-item">'+
+                                      '<a href="#">'+element.name+'<span class="count">'+element.qty+'</span> <span class="price">$'+element.price+'</span></a>'+
+                                 '</div>'
+                           );
+                        })
+                    
+                },
+            });
 
         }).error(function(response) {
 

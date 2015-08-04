@@ -45,13 +45,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $cart = Session::all();
-                        // var_dump($cart);
-                        // die();
-                        $total = 0;
-                        ?>
-
                         <?php $cart = Cart::content();
                             foreach($cart as $item):
                         ?>
