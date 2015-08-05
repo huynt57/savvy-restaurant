@@ -57,6 +57,17 @@ class CartController extends Controller {
 
         return Response::json(array('content' => $cart, 'count' => $count, 'total' => $total));
     }
+    
+    public function updateCartAjax(Request $request) {
+        $dish_id = $request->input('dish_id');
+        $number = $request->input('number');
+        
+       $rowids =  Cart::search(array('id' => $dish_id));
+       foreach ($rowids as $key => $value) {
+            Cart::update($value, array('qty' => $number));
+       }
+       return Response::json(array('success' => TRUE));
+    }
 
     public function checkOut(Request $request) {
         $address = \StringHelper::filterString($request->input('address'));
@@ -74,15 +85,13 @@ class CartController extends Controller {
             $order->order_phone = $phone;
             $order->save();
 
-            $cart = Session::all();
-            foreach ($cart as $key => $value) {
-                if ($key != 'flash' && $key != '_previous' && $key != '_token') {
-                    $order_detail = new OrderDetail;
-                    $order_detail->dish_id = $key;
-                    $order_detail->dish_number = $value;
-                    $order_detail->order_id = $order->id;
-                    $order_detail->save();
-                }
+            $cart = Cart::content();
+            foreach ($cart as $item) {
+                $order_detail = new OrderDetail;
+                $order_detail->dish_id = $item->id;
+                $order_detail->dish_number = $item->qty;
+                $order_detail->order_id = $order->id;
+                $order_detail->save();
             }
             Cart::destroy();
             return Redirect::to(url('menu'))->with('message', 'Order Success !. You can continue buy now !');

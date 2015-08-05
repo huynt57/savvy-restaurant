@@ -54,11 +54,11 @@
                                         <img class="img-circle" src="img/post/product-card-0<?php echo $item->id % 3 ?>.jpg" alt="" />
                                         <?php echo $item->name; ?>
                                     </td>
-                                    <td>$<?php echo $item->price ?></td>
+                                    <td>$<span id="price-<?php echo $item->id?>"><?php echo $item->price ?></span></td>
                                     <td>
-                                        <div class="quantity"><input type="number" step="1" min="0"  name="number" value="<?php echo $item->qty ?>" title="Qty" class="input-text qty text" size="4" /></div>
+                                        <div class="quantity"><input type="number" step="1" dish_id = "<?php echo $item->id?>" min="0"  name="number" value="<?php echo $item->qty ?>" title="Qty" class="input-text qty text" size="4" /></div>
                                     </td>
-                                    <td class="price">$<?php echo $item->qty * $item->price ?></td>
+                                    <td class="price" >$<span class="price-each" id="total-<?php echo $item->id?>"><?php echo $item->qty * $item->price ?></span></td>
                                 </tr>
                                <?php endforeach;?>
 
@@ -66,7 +66,7 @@
                             <th></th>
                             <th></th>
                             <th>subtotal</th>
-                            <th class="price">$<?php echo Cart::total(); ?></th>
+                            <th class="price">$<span id="total"><?php echo Cart::total(); ?></span></th>
                         </tr>
                     </tbody>
                 </table>
@@ -119,6 +119,58 @@
 <script>
     $(document).ready(function() {
          $('#checkout').validator();
+         $('input[name=number]').change(function() {
+             var dish_id = $(this).attr('dish_id');
+             var price = $('#price-'+dish_id).text();
+             var number = $(this).val();
+             price = parseInt(price);
+             number = parseInt(number);
+             if(number < 0 || number > 99) {
+                 alert('Wrong number !!');
+             } else {
+                $('#total-'+dish_id).html(price*number);
+             }
+             
+             $.ajax({
+                 type: 'POST',
+                 url: '<?php echo url('updateCartAjax'); ?>',
+                 dataType: 'json',
+                 data: {dish_id: dish_id, number: number},
+                 success: function(response) {
+                     $.ajax({
+                         beforeSend: function() {
+                             toastr["info"]("Updating, Please wait !!");
+                         },
+                type: 'GET',
+                url: '<?php echo url('getCartAjax'); ?>',
+                dataType: 'json',
+                success: function(response) {
+                    $('#cart-count').html(response.count);
+                    $('#cart-price').html(response.total);     
+                    $('#cart-product').empty();
+                    $.each(response.content, function(index, element) {
+                        $('#cart-product').append(
+                                 '<div class="rst-product-item">'+
+                                      '<a href="#">'+element.name+'<span class="count">'+element.qty+'</span> <span class="price">$'+element.price+'</span></a>'+
+                                 '</div>'
+                           );
+                        })
+                        toastr["success"]("Success !!");
+                    
+                },
+            });
+                 }
+             });
+              var total = 0;
+             $('.price-each').each(function() {
+                var price = $(this).text();
+                price = parseInt(price);
+               
+                total+=price;
+               
+             });
+              $('#total').html(total);
+         });
     });
 </script>
 @endsection

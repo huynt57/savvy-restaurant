@@ -122,7 +122,7 @@
                     </div>
                     <h3>Breakfast</h3>
                     <p>Aenean dapibus facilisis urna lacinia bibendum. Maecenas sit amet lacinia dui. Donec vitae egestas ipsum.</p>
-                    <a href="#" class="btn btn-danger btn-lg">Add to cart</a>
+                    <a href="<?php echo url('menu')?>" class="btn btn-danger btn-lg">Browse menu</a>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -135,7 +135,7 @@
                     </div>
                     <h3>Sushi menu</h3>
                     <p>Aenean dapibus facilisis urna lacinia bibendum. Maecenas sit amet lacinia dui. Donec vitae egestas ipsum.</p>
-                    <a href="#" class="btn btn-danger btn-lg">Add to cart</a>
+                    <a href="<?php echo url('menu')?>" class="btn btn-danger btn-lg">Browse menu</a>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -148,7 +148,7 @@
                     </div>
                     <h3>Hamburger</h3>
                     <p>Aenean dapibus facilisis urna lacinia bibendum. Maecenas sit amet lacinia dui. Donec vitae egestas ipsum.</p>
-                    <a href="#" class="btn btn-danger btn-lg">Add to cart</a>
+                    <a href="<?php echo url('menu')?>" class="btn btn-danger btn-lg">Browse menu</a>
                 </div>
             </div>
         </div>

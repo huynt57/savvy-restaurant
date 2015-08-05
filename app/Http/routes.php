@@ -49,6 +49,8 @@ Route::post('addCart', 'CartController@addCart');
 
 Route::get('getCartAjax', 'CartController@getCartAjax');
 
+Route::post('updateCartAjax', 'CartController@updateCartAjax');
+
 Route::post('addCartWithNumber', 'CartController@addCartWithNumber');
 
 Route::post('removeItemCart', 'CartController@removeItemFromCart');

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="content" ng-controller="StoreController" ng-app="" ng-init="init()">
+<div id="content">
     <div id="rst-banner" data-background="img/post/banner02.jpg">
         <div class="container">
             <div class="rst-inner-banner clearfix">
@@ -36,7 +36,17 @@
               
                 <div class="col-sm-12">
                     <div class="row" style="margin-bottom: 20px;">
-                        
+                        <div class="col-sm-3">
+                            <p>
+                                <?php if(count($result) > 0):?>
+                                    <p> We have <?php echo count($result) ?> results</p>
+                                <?php endif;?>
+                                
+                                <?php if(count($result) == 0):?>
+                                    <p> No data available</p>
+                                <?php endif;?>
+                            </p>
+                        </div>
                         <div class="col-sm-9">
                             <div class="rst-view">
                                 <a href="#" class="rst-tile"></a>
@@ -66,15 +76,7 @@
                         </div>
                         <?php endforeach;?>
                     </div><!-- End Product List-->
-                    <nav class="wp-pagenavi">
-                        <a class="btn btn-sm btn-success page-prev" href="#">Previous</a>
-                        <span class="btn btn-sm btn-success page-numbers current">1</span>
-                        <a class="page-numbers" href="#">2</a>
-                        <a class="page-numbers" href="#">3</a>
-                        <a class="page-numbers" href="#">4</a>
-                        <a class="page-numbers" href="#">5</a>
-                        <a class="btn btn-sm btn-success page-next" href="#">Next</a>
-                    </nav>
+                   
                 </div>
             </div>
         </div>

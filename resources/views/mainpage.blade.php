@@ -84,6 +84,13 @@
                 js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=1493872717557948";
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
+        <script>
+            $(document).ready(function() {
+                 var url = window.location.href;
+                 $('a[href="' + url + '"]').parent().addClass('current-menu-item');
+                
+            });
+        </script>
 
         <!-- Preloader -->
         <div id="pageLoading">
@@ -111,7 +118,7 @@
                                     <input type="text" value="" />
                                 </form>
                                 <ul class="rst-main-menu">
-                                    <li class="current-menu-item"><a href="<?php echo url('main') ?>">Home</a></li>                                   
+                                    <li><a href="<?php echo url('main') ?>">Home</a></li>                                   
                                     <li><a href="<?php echo url('menu') ?>">Menu</a></li>
                                     <li><a href="<?php echo url('reservation') ?>">Reservation</a></li>
                                     <li><a href="<?php echo url('contact') ?>">Contact</a></li>
@@ -169,19 +176,17 @@
                                 </div>
                                 <div class="rst-menu-footer rst-table-cell">
                                     <ul>
-                                        <li class="current-menu-item"><a href="<?php echo url('main') ?>">Home</a></li>                                   
+                                        <li><a href="<?php echo url('main') ?>">Home</a></li>                                   
                                         <li><a href="<?php echo url('menu') ?>">Menu</a></li>
                                         <li><a href="<?php echo url('reservation') ?>">Reservation</a></li>
                                         <li><a href="<?php echo url('contact') ?>">Contact</a></li>
                                         <li><a href="<?php echo url('about') ?>">About Us</a></li>
                                     </ul>
                                 </div>
-                                <div class="rst-note rst-table-cell">
-                                    <p>Thanks for watching. Go to start.</p>
-                                </div>
+                             
                             </div>
                         </div>
-                        <a class="rst-backtop" href="#wrapper"><i class="fa fa-chevron-up"></i></a>
+                  
                     </div>
                 </div>
             </footer>
@@ -190,18 +195,47 @@
         <script type="text/javascript">
 
             function CartController($scope, $http, $element) {
-                $scope.addCart = function(dish_id) {
-                    $http({
-                        method: 'POST',
-                        url: '<?php echo url("addCart") ?>',
-                        data: $.param({dish_id: dish_id}),
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                    }).success(function(response) {
+               $scope.addCart = function(dish_id) {
+        toastr.options = {
+            "positionClass": "toast-top-center",
+        };
+        toastr["info"]("Buying, Please wait !!");
+        $http({
+            method: 'POST',
+            url: 'addCart',
+            data: $.param({
+                dish_id: dish_id
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+        }).success(function(response) {
+            $.ajax({
+                type: 'GET',
+                url: 'getCartAjax',
+                dataType: 'json',
+                success: function(response) {
+                    $('#cart-count').html(response.count);
+                    $('#cart-price').html(response.total);     
+                    $('#cart-product').empty();
+                    $.each(response.content, function(index, element) {
+                        $('#cart-product').append(
+                                 '<div class="rst-product-item">'+
+                                      '<a href="#">'+element.name+'<span class="count">'+element.qty+'</span> <span class="price">$'+element.price+'</span></a>'+
+                                 '</div>'
+                           );
+                        })
+                    
+                },
+            });
+            
+           toastr["success"]("Awesome !!!. Buy Success !!");
+            
 
-                    }).error(function(response) {
-
-                    });
-                };
+        }).error(function(response) {
+            toastr["error"]("Oop !!!. Something wrong :(. Please try again later");
+        });
+    };
 
                 $scope.removeItemCart = function(dish_id) {
                     //$scope.class = "remove-item";
