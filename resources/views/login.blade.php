@@ -69,38 +69,7 @@
 
         <title>Administrator management</title>
     </head>
-
-    <body> 
-
-
-        <!-- BEGIN -->
-
-        <div id="navigation">
-            <div class="container-fluid">
-                <a href="#" id="brand">Restaurant management</a>			
-                <div class="user">
-                    <div class="dropdown">
-                        <a href="#" class='dropdown-toggle' data-toggle="dropdown">Admin </a>
-                        <ul class="dropdown-menu pull-right">						
-                            
-                            <li>
-                                <a href="<?php echo url('admin/logout')?>">Sign out</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>	
+     
         @yield('content')
-
-        <div class="clear"></div>
-
-        <div id="footer">
-            Copyright &copy; <?php echo date('Y'); ?> by Restaurant management.<br/>
-            All Rights Reserved.<br/>    	
-        </div><!-- footer -->
-
-
-
-    </body>
+      
 </html>

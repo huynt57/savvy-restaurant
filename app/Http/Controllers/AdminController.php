@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\OrderController;
+use Session;
+use Redirect;
 
 class AdminController extends Controller {
 
@@ -15,8 +17,35 @@ class AdminController extends Controller {
      *
      * @return Response
      */
+    public function __construct() {
+
+       // $this->middleware('admin');
+    }
+
     public function index() {
-        //
+        
+    }
+
+    public function login() {
+
+        return view('admin/login');
+    }
+
+    public function logout() {
+        Session::forget('admin');
+        return view('admin/login');
+    }
+
+    public function processAdminLogin(Request $request) {
+        $uname = \StringHelper::filterString($request->input('uname'));
+        $upw = \StringHelper::filterString($request->input('upw'));
+
+        if ($uname == 'admin' && $upw == 'admin') {
+            Session::put('admin', 'admin');
+            return Redirect::to(url('admin/dish'))->with('message', 'Login success');
+        } else {
+            return Redirect::to(url('admin/login'))->with('message', 'Something Wrong :(');
+        }
     }
 
     public function dishAdmin() {

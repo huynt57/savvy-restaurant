@@ -8,7 +8,7 @@ class Dish extends Model {
 
     protected $table = 'dish';
     public $timestamps = false;
-    
+    protected $primaryKey = 'dish_id';
     
 
 }

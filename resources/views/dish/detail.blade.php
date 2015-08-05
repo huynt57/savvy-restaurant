@@ -154,14 +154,20 @@
     <script>
         function addCartWithNumber() {
             var number = $('#number').val();
+             toastr.options = {
+            "positionClass": "toast-top-center",
+        };
             $.ajax({
+                
+                beforeSend: function()
+                {
+                   toastr["info"]("Buying !!, Please Wait !!");  
+                },
                 type: 'POST',
                 url: '<?php echo url('addCartWithNumber'); ?>',
                 data: {dish_id: <?php echo $dish->dish_id ?>, number: number},
                 success: function(response) {
-                    toastr.options = {
-            "positionClass": "toast-top-center",
-        };
+                   
                     $.ajax({
                         type: 'GET',
                         url: '<?php echo url('getCartAjax') ?>',

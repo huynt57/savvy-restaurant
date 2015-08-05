@@ -38,9 +38,18 @@
                 </a>
             </div>
         </div>
+         <?php if (Session::get('message') != ""): ?>
+        <div class="alert alert-success">
+											<button type="button" class="close" data-dismiss="alert">&times;</button>
+											 <?php echo Session::get('message'); ?>
+										</div>             
+        <?php endif;?>
         <div class="row-fluid">
+           
             <div class="span12">
+                 
                 <div class="box box-color box-bordered">
+                    <button class="btn btn-primary" style="margin-top: 15px;" ng-click="addDish()">Add new dish</button>
                     <div class="box-title">
                         <h3>
                             <i class="icon-table"></i>
@@ -66,12 +75,12 @@
                                     <td>{{ $dish -> dish_name}}</td>
                                     <td>${{ $dish -> dish_price}}</td>
 
-                                    <td><img src="{{ asset($dish -> dish_image)}}" /></td>
-                                    <td style="width: 60%;">{{ $dish -> dish_description}}</td>
+                                    <td style="width: 10%;"><img src="{{ asset($dish -> dish_image)}}" /></td>
+                                    <td style="width: 55%;">{{ substr($dish -> dish_description,0, 400)}}....</td>
                                     <td style="width: 10%">
                                         <a href="#" ng-click="detailDish({{$dish -> dish_id}})">Detail</a>
-                                        <a href="#" ng-click="detailDish({{$dish -> dish_id}})">Edit</a>
-                                        <a href="#" ng-click="deleteDish({{$dish -> dish_id}})">Delete</a>
+                                        <a href="#" ng-click="editDish()">Edit</a>
+                                        <a href="<?php echo url('admin/dish/delete?dish_id=') ?>{{$dish -> dish_id}}" ng-click="deleteDish({{$dish -> dish_id}})" onclick="if(!confirm('Are you sure ?? Cannot rollback !!!')){return false;}">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -83,54 +92,22 @@
             </div>
         </div>
     </div>
-    <div id="modal-detail" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <img src="{{asset('img/bx_loader.gif')}}" style=" position: absolute;
-                             top: 0; bottom:0; left: 0; right:0;
-                             margin: auto;" id="loading"/>
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="modal-label">@{{detail.dish_name}}</h3>
-        </div>
-        <div class="modal-body">
-            <img src="<?php echo url()?>/@{{detail.dish_image}}"  style="
-    height: 150px;
-    float: left;
-    margin-right: 20px;
-    " id="image"/>
-            <p id="des">@{{detail.dish_description}}</p>
-            <p id="price">Price: $@{{detail.dish_price}}</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
-        </div>
-    </div>
-    
-        <div id="modal-edit" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <img src="{{asset('img/bx_loader.gif')}}" style=" position: absolute;
-                             top: 0; bottom:0; left: 0; right:0;
-                             margin: auto;" id="loading"/>
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="modal-label">@{{detail.dish_name}}</h3>
-        </div>
-        <div class="modal-body">
-            <img src="<?php echo url()?>/@{{detail.dish_image}}"  style="
-    height: 150px;
-    float: left;
-    margin-right: 20px;
-    " id="image"/>
-            <p id="des">@{{detail.dish_description}}</p>
-            <p id="price">Price: $@{{detail.dish_price}}</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
-        </div>
-    </div>
+   @include('admin.dish.detail')
+       @include('admin.dish.edit')
+          @include('admin.dish.add')
 </div>
 
 
 <script>
  function DishController($http, $scope) {
+     $scope.addDish = function() {
+         $("#modal-add").modal("show");
+          
+     }
+     
+     $scope.editDish = function() {
+         $("#modal-edit").modal("show"); 
+     }
      $scope.detail = {};
      $scope.detailDish = function(id) {
          $("#modal-detail").modal("show");
@@ -161,40 +138,7 @@
          });
      }
      
-     $scope.editDish = function(id) {
-        $http({
-             method: 'POST',
-             url: '<?php echo url('admin/dish/detail') ?>',
-             data: $.param({
-                 dish_id: id
-             }),
-             headers: {
-                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-             },
-         }).success(function(response) {
-             $scope.detail = response;
-         }).error(function(response) {
-             // console.log(response);
-         });
-     }
-     
-     $scope.deleteDish = function(id) {
-        $http({
-             method: 'POST',
-             url: '<?php echo url('admin/dish/delete') ?>',
-             data: $.param({
-                 dish_id: id
-             }),
-             headers: {
-                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-             },
-         }).success(function(response) {
-            // $scope.detail = response;
-             //alert('t');
-         }).error(function(response) {
-             // console.log(response);
-         }); 
-     }
+    
 
  }
 

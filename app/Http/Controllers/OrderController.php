@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use Response;
 use DB;
@@ -33,7 +34,7 @@ class OrderController extends Controller {
              return $results;
         }
         
-        public function updateOrder()
+        public function updateOrder(Request $request)
         {
             
         }
@@ -42,6 +43,7 @@ class OrderController extends Controller {
              $order_id = \StringHelper::filterString($request->input('order_id'));
              $deletedRows = Order::where('id', $order_id)->delete();
              $catRow = OrderDetail::where('order_id', $order_id)->delete();
+             return Redirect::back()->with('message', 'Success');
         }
 
 }

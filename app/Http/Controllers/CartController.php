@@ -74,8 +74,9 @@ class CartController extends Controller {
         $name = \StringHelper::filterString($request->input('name'));
         $content = \StringHelper::filterString($request->input('comments'));
         $phone = \StringHelper::filterString($request->input('phone'));
+        $count = Cart::count();
 
-        if ($phone != "" && $name != "" && $content != "") {
+        if ($phone != "" && $name != "" && $content != "" && $count > 0) {
             $order = new Order;
             $order->order_name = $name;
             $order->status = 1;

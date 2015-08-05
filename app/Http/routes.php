@@ -61,15 +61,25 @@ Route::get('dish/{name}-{dish_id}', 'DishController@DishDetail')->where('name', 
 
 Route::get('admin/dish', 'AdminController@dishAdmin');
 
+Route::get('admin/login', 'AdminController@login');
+
+Route::post('admin/plogin', 'AdminController@processAdminLogin');
+
 Route::get('admin/order', 'AdminController@orderAdmin');
 
 Route::get('admin/dish/listdish', 'DishController@listDishAdmin');
 
 Route::post('admin/dish/detail','DishController@detailDish');
 
-Route::post('admin/dish/delete','DishController@deleteDish');
+Route::post('admin/dish/add','DishController@createNewDish');
+
+Route::get('admin/dish/delete','DishController@deleteDish');
 
 Route::post('admin/order/detail','OrderController@orderDetail');
+
+Route::get('admin/order/delete','OrderController@deleteOrder');
+
+Route::get('admin/logout','AdminController@logout');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
