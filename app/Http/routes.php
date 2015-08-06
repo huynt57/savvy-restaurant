@@ -69,6 +69,8 @@ Route::get('admin/order', 'AdminController@orderAdmin');
 
 Route::get('admin/dish/listdish', 'DishController@listDishAdmin');
 
+Route::post('admin/dish/edit', 'DishController@updateDish');
+
 Route::post('admin/dish/detail','DishController@detailDish');
 
 Route::post('admin/dish/add','DishController@createNewDish');

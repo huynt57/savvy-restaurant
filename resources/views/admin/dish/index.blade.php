@@ -79,7 +79,7 @@
                                     <td style="width: 55%;">{{ substr($dish -> dish_description,0, 400)}}....</td>
                                     <td style="width: 10%">
                                         <a href="#" ng-click="detailDish({{$dish -> dish_id}})">Detail</a>
-                                        <a href="#" ng-click="editDish()">Edit</a>
+                                        <a href="#" ng-click="editDish({{$dish -> dish_id}})">Edit</a>
                                         <a href="<?php echo url('admin/dish/delete?dish_id=') ?>{{$dish -> dish_id}}" ng-click="deleteDish({{$dish -> dish_id}})" onclick="if(!confirm('Are you sure ?? Cannot rollback !!!')){return false;}">Delete</a>
                                     </td>
                                 </tr>
@@ -105,8 +105,26 @@
           
      }
      
-     $scope.editDish = function() {
-         $("#modal-edit").modal("show"); 
+     $scope.editDish = function(id) {
+         
+          
+         $http({
+             method: 'POST',
+             url: '<?php echo url('admin/dish/detail') ?>',
+             data: $.param({
+                 dish_id: id
+             }),
+             headers: {
+                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+             },
+         }).success(function(response) {
+            
+             $scope.detail_edit = response[0];
+           
+             $("#modal-edit").modal("show"); 
+         }).error(function(response) {
+             // console.log(response);
+         });
      }
      $scope.detail = {};
      $scope.detailDish = function(id) {

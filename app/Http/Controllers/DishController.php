@@ -100,25 +100,24 @@ class DishController extends Controller {
         $price = \StringHelper::filterString($request->input('price'));
         $description = \StringHelper::filterString($request->input('description'));
         $destinationPath = 'uploads/'; // upload path
-        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-        $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
-        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-        $cat_id = \StringHelper::filterString($request->input('cat'));
-
+        $dish_id = \StringHelper::filterString($request->input('dish_id'));
         if ($name != "" && $price != "") {
-            $dish = new Dish;
+            $dish = Dish::find($dish_id);
             $dish->dish_name = $name;
             $dish->dish_price = $price;
             $dish->dish_description = $description;
-            $dish->dish_image = $destinationPath . $fileName;
-            $dish->active = 1;
-            $dish->save();
 
-            $cat = new DishCategory;
-            $cat->category_id = $cat_id;
-            $cat->dish_id = $dish->dish_id;
-            $cat->save();
+            $dish->active = 1;
         }
+        if (Input::file('image')) {
+            $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+            $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+            Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+
+            $image = $destinationPath . $fileName;
+            $dish->dish_image = $image;
+        }
+        $dish->save();
         return Redirect::back()->with('message', 'Success');
     }
 

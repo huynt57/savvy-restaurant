@@ -69,7 +69,13 @@
 
         <title>Administrator management</title>
     </head>
-
+<script>
+            $(document).ready(function() {
+                 var url = window.location.href;
+                 $('a[href="' + url + '"]').parent().addClass('active');
+                
+            });
+        </script>
     <body> 
 
 
@@ -91,6 +97,22 @@
                 </div>
             </div>
         </div>	
+        <div id="left">			
+        <div class="subnav">
+            <div class="subnav-title">
+                <a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Airport Staff</span></a>
+            </div>
+            <ul class="subnav-menu">					            
+                <li>
+                    <a href="<?php echo url('admin/dish')?>">Dish management</a>
+                </li>			
+                <li>
+                    <a href="<?php echo url('admin/order')?>">Order management</a>
+                </li>							
+            </ul>				
+        </div>						
+    </div>
+
         @yield('content')
 
         <div class="clear"></div>

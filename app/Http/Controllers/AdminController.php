@@ -19,7 +19,7 @@ class AdminController extends Controller {
      */
     public function __construct() {
 
-       // $this->middleware('admin');
+        $this->middleware('admin');
     }
 
     public function index() {
@@ -32,7 +32,7 @@ class AdminController extends Controller {
     }
 
     public function logout() {
-        Session::forget('admin');
+        Session::flush();
         return view('admin/login');
     }
 
@@ -41,7 +41,7 @@ class AdminController extends Controller {
         $upw = \StringHelper::filterString($request->input('upw'));
 
         if ($uname == 'admin' && $upw == 'admin') {
-            Session::put('admin', 'admin');
+           // Session::put('admin', 'admin');
             return Redirect::to(url('admin/dish'))->with('message', 'Login success');
         } else {
             return Redirect::to(url('admin/login'))->with('message', 'Something Wrong :(');
